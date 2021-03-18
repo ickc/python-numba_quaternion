@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from functools import cached_property
 
 import numpy as np
-from numba import jit
+from numba import jit, generated_jit
 
 try:
     from coloredlogs import ColoredFormatter as Formatter
@@ -49,7 +49,7 @@ def mul(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> np.ndarray[np
     D = q[..., 1]
     real_i_part = A * C - B * np.conjugate(D)
     jk_part = B * np.conjugate(C) + A * D
-    return np.column_stack((real_i_part, jk_part))
+    return np.stack((real_i_part, jk_part), -1)
 
 
 @jit(nopython=True, nogil=True)
@@ -75,24 +75,47 @@ def inverse(p: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
     return conjugate(p) / norm(p).reshape(*p.shape[:-1], 1)
 
 
-def real_to_complex(array: np.ndarray[np.float_]) -> np.ndarray[np.complex_]:
-    dtype = array.dtype
-    if dtype == np.float64:
-        return array.view(dtype=np.complex128)
-    elif dtype == np.float32:
-        return array.view(dtype=np.complex64)
-    else:
-        raise ValueError(f'Unsupported dtype {dtype}.')
+@jit(nopython=True, nogil=True)
+def rotate(p: np.ndarray[np.float_], v: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
+    return conjugate(p) / norm(p).reshape(*p.shape[:-1], 1)
 
 
-def complex_to_real(array_complex: np.ndarray[np.complex_]) -> np.ndarray[np.float_]:
-    dtype = array_complex.dtype
-    if dtype == np.complex128:
-        return array_complex.view(dtype=np.float64)
-    elif dtype == np.complex64:
-        return array_complex.view(dtype=np.float32)
-    else:
-        raise ValueError(f'Unsupported dtype {dtype}.')
+@jit(nopython=True, nogil=True)
+def float64_to_complex128(array):
+    return array.view(np.complex128)
+
+
+@jit(nopython=True, nogil=True)
+def float32_to_complex64(array):
+    return array.view(np.complex64)
+
+
+@jit(nopython=True, nogil=True)
+def complex128_to_float64(array):
+    return array.view(np.float64)
+
+
+@jit(nopython=True, nogil=True)
+def complex64_to_float32(array):
+    return array.view(np.float32)
+
+
+@generated_jit(nopython=True, nogil=True)
+def float_to_complex(array):
+    dtype = str(array.dtype)
+    if dtype == 'float64':
+        return float64_to_complex128
+    elif dtype == 'float32':
+        return float32_to_complex64
+
+
+@generated_jit(nopython=True, nogil=True)
+def complex_to_float(array):
+    dtype = str(array.dtype)
+    if dtype == 'complex128':
+        return complex128_to_float64
+    elif dtype == 'complex64':
+        return complex64_to_float32
 
 
 @dataclass
@@ -104,7 +127,7 @@ class Quaternion:
 
     @cached_property
     def array_complex(self) -> np.ndarray[np.complex_]:
-        return real_to_complex(self.array)
+        return float_to_complex(self.array)
 
     def __add__(self, other: Quaternion) -> Quaternion:
         return Quaternion(self.array + other.array)
@@ -116,7 +139,7 @@ class Quaternion:
         return Quaternion.from_array_complex(mul(self.array_complex, other.array_complex))
 
     def __imul__(self, other: Quaternion):
-        self.array = complex_to_real(mul(self.array_complex, other.array_complex))
+        self.array = complex_to_float(mul(self.array_complex, other.array_complex))
 
     @property
     def conjugate(self):
@@ -136,4 +159,4 @@ class Quaternion:
 
     @classmethod
     def from_array_complex(cls, array_complex: np.ndarray[np.complex_]) -> Quaternion:
-        return cls(complex_to_real(array_complex))
+        return cls(complex_to_float(array_complex))
