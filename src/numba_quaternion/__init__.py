@@ -119,6 +119,34 @@ def rotate(p: np.ndarray[np.complex_], v: np.ndarray[np.complex_]) -> np.ndarray
     return mul(mul(p, v), p_inv)
 
 
+@jit(nopython=True, nogil=True)
+def quat_to_angular_position_and_orientation(quats: np.ndarray[np.complex_]) -> np.ndarray[np.float_]:
+    """Convert from detector pointing to angular location and orientation.
+
+    Returned array is in radian,
+    has the last dimension with 3 elements,
+    1st as the horizontal angular position,
+    2nd as the vertical angular position,
+    3rd as the orientation in angle.
+    """
+    x_axis = np.array([1.j, 0.], dtype=quats.dtype)
+    z_axis = np.array([0., 1.j], dtype=quats.dtype)
+    # rotation from boresight
+    r = rotate(quats, z_axis)
+    ds = np.arccos(r[:, 1].imag)
+    angles = np.arctan2(r[:, 1].real, r[:, 0].imag)
+
+    orients = rotate(quats, x_axis)
+    return np.stack(
+        (
+            ds * np.cos(angles),
+            ds * np.sin(angles),
+            np.arctan2(orients[:, 1].real, orients[:, 0].imag)
+        ),
+        -1,
+    )
+
+
 @dataclass
 class Quaternion:
     array: np.ndarray[np.float_]
@@ -160,6 +188,10 @@ class Quaternion:
 
     def rotate(self, other: Quaternion) -> Quaternion:
         return Quaternion.from_array_complex(rotate(self.array_complex, other.array_complex))
+
+    @cached_property
+    def angular_position_and_orientation(self) -> np.ndarray[np.float_]:
+        return quat_to_angular_position_and_orientation(self.array_complex)
 
     @classmethod
     def from_array_complex(cls, array_complex: np.ndarray[np.complex_]) -> Quaternion:
