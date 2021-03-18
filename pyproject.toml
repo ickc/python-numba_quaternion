@@ -1,0 +1,246 @@
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "numba_quaternion"
+version = "0.1.0"
+description = "Some convenience functions for Cosmology-related analysis."
+license = "BSD-3-Clause"
+keywords = [
+    "cosmology",
+    "CMB",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: Unix",
+    "Operating System :: POSIX",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Utilities",
+]
+homepage = "https://github.com/ickc/numba_quaternion"
+repository = "https://github.com/ickc/numba_quaternion"
+documentation = "https://ickc.github.io/numba_quaternion"
+authors = ["Kolen Cheung <christian.kolen@gmail.com>"]
+readme = "README.rst"
+packages = [
+    { include = "numba_quaternion", from = "src" },
+]
+include = [
+    'LICENSE',
+    'README.rst',
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8"
+numpy = "^1"
+numba = ">=0.52"
+
+# extras
+coloredlogs = {optional = true, version = ">=14,<16"}
+
+# tests
+coverage = {optional = true, version = "*"}
+coveralls = {optional = true, version = "*"}
+flake8 = {optional = true, version = "*"}
+pytest = {optional = true, version = "*"}
+pytest-cov = {optional = true, version = "*"}
+pytest-parallel = {optional = true, version = "*"}
+
+# docs: sync this with tox.testenv.docs below
+sphinx = {optional = true, version = "^3.3"}
+sphinx-bootstrap-theme = {optional = true, version = "*"}
+pygments-style-solarized = {optional = true, version = "*"}
+sphinxcontrib-apidoc = {optional = true, version = "*"}
+
+[tool.poetry.dev-dependencies]
+tox = "*"
+data-science-types = "*"
+
+[tool.poetry.extras]
+extras = [
+    "coloredlogs",
+]
+tests = [
+    "coverage",
+    "coveralls",
+    "flake8",
+    "pytest",
+    "pytest-cov",
+    "pytest-parallel",
+]
+docs = [
+    "sphinx",
+    "sphinx-bootstrap-theme",
+    "pygments-style-solarized",
+    "sphinxcontrib-apidoc",
+]
+
+# [tool.poetry.scripts]
+# fits_info = 'numba_quaternion.fits_helper:fits_info_cli'
+# simmap_planck2018 = 'numba_quaternion.cmb:simmap_planck2018_cli'
+
+[tool.coverage.paths]
+source = [
+    'src',
+    '*/site-packages',
+]
+
+[tool.coverage.run]
+branch = true
+source = [
+    'src',
+    'tests',
+]
+parallel = true
+relative_files = true
+
+[tool.coverage.report]
+show_missing = true
+precision = 2
+
+[tool.pytest.ini_options]
+
+python_files = [
+    'test_*.py',
+    '*_test.py',
+    'tests.py',
+]
+
+addopts = [
+    '-ra',
+    '--strict-markers',
+    '--doctest-modules',
+    '--doctest-glob=\*.rst',
+    '--tb=short',
+]
+
+testpaths = [
+    'tests',
+]
+
+[tool.isort]
+line_length = 120
+known_first_party = 'numba_quaternion'
+default_section = 'THIRDPARTY'
+forced_separate = 'test_numba_quaternion'
+skip = [
+    '.tox',
+    '.eggs',
+    'ci/templates',
+    'build',
+    'dist',
+]
+
+[tool.tox]
+legacy_tox_ini = '''
+[testenv:bootstrap]
+deps =
+    jinja2
+    matrix
+    tox
+skip_install = true
+commands =
+    python ci/bootstrap.py --no-env
+passenv =
+    *
+; a generative tox configuration, see: https://tox.readthedocs.io/en/latest/config.html#generative-envlist
+
+[tox]
+isolated_build = True
+envlist =
+    clean,
+    check,
+    docs,
+    {py38,py39},
+    report
+ignore_basepython_conflict = true
+
+[gh-actions]
+python =
+    3.8: py38, mypy
+    3.9: py39
+
+[testenv]
+basepython =
+    py38: {env:TOXPYTHON:python3.8}
+    py39: {env:TOXPYTHON:python3.9}
+    {bootstrap,clean,check,report,docs,codecov,coveralls}: {env:TOXPYTHON:python3}
+    .package: python3
+setenv =
+    # for coverage to work properly
+    PYTHONPATH={toxinidir}/src
+    PYTHONUNBUFFERED=yes
+passenv =
+    *
+usedevelop = false
+deps =
+    pytest
+    pytest-cov
+    yamlloader
+commands =
+    {posargs:pytest --cov --cov-branch --cov-report=term-missing --cov-report=xml -vv tests}
+
+[testenv:check]
+deps =
+    docutils
+    check-manifest
+    flake8
+    readme-renderer
+    pygments
+    isort
+skip_install = true
+commands =
+    flake8 --ignore F821,E501 --max-line-length 140 --exclude '.tox,.eggs,ci/templates,build,dist,setup.py'
+    isort --verbose --check-only --diff --filter-files .
+
+[testenv:docs]
+usedevelop = false
+deps =
+    sphinx >=3.3,<4
+    sphinx-bootstrap-theme
+    pygments-style-solarized
+    sphinxcontrib-apidoc
+commands =
+    sphinx-build {posargs:-E} -b dirhtml docs dist/docs
+    sphinx-build -b linkcheck docs dist/docs
+
+[testenv:coveralls]
+deps =
+    coveralls
+skip_install = true
+commands =
+    coveralls []
+
+[testenv:codecov]
+deps =
+    codecov
+skip_install = true
+commands =
+    codecov []
+
+[testenv:report]
+deps =
+    coverage
+    toml
+skip_install = true
+commands =
+    coverage report
+    coverage html
+
+[testenv:clean]
+commands = coverage erase
+skip_install = true
+deps =
+    coverage
+    toml
+'''
