@@ -41,46 +41,6 @@ def canonical_quat_to_lastcol(quat: np.ndarray[np.float_]) -> np.ndarray[np.floa
 
 
 @jit(nopython=True, nogil=True)
-def mul(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> np.ndarray[np.complex_]:
-    """Perform quarternion multiplication using complex multiplication"""
-    A = p[..., 0]
-    B = p[..., 1]
-    C = q[..., 0]
-    D = q[..., 1]
-    real_i_part = A * C - B * np.conjugate(D)
-    jk_part = B * np.conjugate(C) + A * D
-    return np.stack((real_i_part, jk_part), -1)
-
-
-@jit(nopython=True, nogil=True)
-def conjugate(p: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
-    res = np.empty_like(p)
-    res[..., 0] = p[..., 0]
-    res[..., 1:] = -p[..., 1:]
-    return res
-
-
-@jit(nopython=True, nogil=True)
-def norm(p: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
-    return np.square(p).sum(axis=-1)
-
-
-@jit(nopython=True, nogil=True)
-def abs(p: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
-    return np.sqrt(norm(p))
-
-
-@jit(nopython=True, nogil=True)
-def inverse(p: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
-    return conjugate(p) / norm(p).reshape(*p.shape[:-1], 1)
-
-
-@jit(nopython=True, nogil=True)
-def rotate(p: np.ndarray[np.float_], v: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
-    return conjugate(p) / norm(p).reshape(*p.shape[:-1], 1)
-
-
-@jit(nopython=True, nogil=True)
 def float64_to_complex128(array):
     return array.view(np.complex128)
 
@@ -116,6 +76,47 @@ def complex_to_float(array):
         return complex128_to_float64
     elif dtype == 'complex64':
         return complex64_to_float32
+
+
+@jit(nopython=True, nogil=True)
+def mul(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> np.ndarray[np.complex_]:
+    """Perform quarternion multiplication using complex multiplication"""
+    A = p[..., 0]
+    B = p[..., 1]
+    C = q[..., 0]
+    D = q[..., 1]
+    real_i_part = A * C - B * np.conjugate(D)
+    jk_part = B * np.conjugate(C) + A * D
+    return np.stack((real_i_part, jk_part), -1)
+
+
+@jit(nopython=True, nogil=True)
+def conjugate(p: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
+    res = np.empty_like(p)
+    res[..., 0] = p[..., 0]
+    res[..., 1:] = -p[..., 1:]
+    return res
+
+
+@jit(nopython=True, nogil=True)
+def norm(p: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
+    return np.square(p).sum(axis=-1)
+
+
+@jit(nopython=True, nogil=True)
+def abs(p: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
+    return np.sqrt(norm(p))
+
+
+@jit(nopython=True, nogil=True)
+def inverse(p: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
+    return conjugate(p) / norm(p).reshape(*p.shape[:-1], 1)
+
+
+@jit(nopython=True, nogil=True)
+def rotate(p: np.ndarray[np.complex_], v: np.ndarray[np.complex_]) -> np.ndarray[np.complex_]:
+    p_inv = float_to_complex(inverse(complex_to_float(p)))
+    return mul(mul(p, v), p_inv)
 
 
 @dataclass
@@ -156,6 +157,9 @@ class Quaternion:
     @property
     def inverse(self):
         return Quaternion(inverse(self.array))
+
+    def rotate(self, other: Quaternion) -> Quaternion:
+        return Quaternion.from_array_complex(rotate(self.array_complex, other.array_complex))
 
     @classmethod
     def from_array_complex(cls, array_complex: np.ndarray[np.complex_]) -> Quaternion:
