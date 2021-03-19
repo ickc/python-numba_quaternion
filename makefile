@@ -56,7 +56,7 @@ dist/docs/:
 
 # maintenance ##################################################################
 
-.PHONY: pypi pypiManual pep8 flake8 pylint
+.PHONY: pypi pypiManual gh-pages pep8 flake8 pylint
 # Deploy to PyPI
 ## by CI, properly git tagged
 pypi:
@@ -67,6 +67,9 @@ pypiManual:
 	tox -e check
 	poetry build
 	twine upload dist/*
+
+gh-pages:
+	ghp-import --no-jekyll --push dist/docs
 
 # check python styles
 pep8:
