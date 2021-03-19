@@ -93,10 +93,10 @@ def mul(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> np.ndarray[np
 @jit(nopython=True, nogil=True, cache=True)
 def matmul(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> np.ndarray[np.complex_]:
     """Perform quarternion matrix multiplication using complex matrix multiplication"""
-    A = p[..., 0]
-    B = p[..., 1]
-    C = q[..., 0]
-    D = q[..., 1]
+    A = np.ascontiguousarray(p[..., 0])
+    B = np.ascontiguousarray(p[..., 1])
+    C = np.ascontiguousarray(q[..., 0])
+    D = np.ascontiguousarray(q[..., 1])
     real_i_part = A @ C - B @ np.conjugate(D)
     jk_part = B @ np.conjugate(C) + A @ D
     return np.stack((real_i_part, jk_part), -1)
