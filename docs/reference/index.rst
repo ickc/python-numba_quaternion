@@ -4,4 +4,4 @@ Reference
 .. toctree::
     :glob:
 
-    numba_quaternion*
+    ../api/modules
