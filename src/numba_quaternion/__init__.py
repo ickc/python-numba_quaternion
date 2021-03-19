@@ -91,6 +91,18 @@ def mul(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> np.ndarray[np
 
 
 @jit(nopython=True, nogil=True)
+def matmul(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> np.ndarray[np.complex_]:
+    """Perform quarternion matrix multiplication using complex matrix multiplication"""
+    A = p[..., 0]
+    B = p[..., 1]
+    C = q[..., 0]
+    D = q[..., 1]
+    real_i_part = A @ C - B @ np.conjugate(D)
+    jk_part = B @ np.conjugate(C) + A @ D
+    return np.stack((real_i_part, jk_part), -1)
+
+
+@jit(nopython=True, nogil=True)
 def conjugate(p: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
     res = np.empty_like(p)
     res[..., 0] = p[..., 0]
@@ -169,6 +181,9 @@ class Quaternion:
 
     def __imul__(self, other: Quaternion):
         self.array = complex_to_float(mul(self.array_complex, other.array_complex))
+
+    def __matmul__(self, other: Quaternion) -> Quaternion:
+        return Quaternion.from_array_complex(matmul(self.array_complex, other.array_complex))
 
     @property
     def conjugate(self):
