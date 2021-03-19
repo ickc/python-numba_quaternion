@@ -132,8 +132,35 @@ def rotate(p: np.ndarray[np.complex_], v: np.ndarray[np.complex_]) -> np.ndarray
 
 
 @jit(nopython=True, nogil=True)
+def quat_to_azimuthal_equidistant_projection_polar_with_orientation(quats: np.ndarray[np.complex_]) -> np.ndarray[np.float_]:
+    """Convert from detector pointing to Azimuthal equidistant projection in polar coordinate with orientation.
+
+    Returned array is in radian,
+    has the last dimension with 3 elements,
+    1st as the angular distance to North pole,
+    2nd as the azimuth,
+    3rd as the orientation in angle.
+    """
+    x_axis = np.array([1.j, 0.], dtype=quats.dtype)
+    z_axis = np.array([0., 1.j], dtype=quats.dtype)
+    # rotation from boresight
+    r = rotate(quats, z_axis)
+    ds = np.arccos(r[:, 1].imag)
+    angles = np.arctan2(r[:, 1].real, r[:, 0].imag)
+
+    orients = rotate(quats, x_axis)
+    return np.stack((
+            ds,
+            angles,
+            np.arctan2(orients[:, 1].real, orients[:, 0].imag)
+        ),
+        -1,
+    )
+
+
+@jit(nopython=True, nogil=True)
 def quat_to_azimuthal_equidistant_projection_with_orientation(quats: np.ndarray[np.complex_]) -> np.ndarray[np.float_]:
-    """Convert from detector pointing to Azimuthal equidistant projection with orientation.
+    """Convert from detector pointing to Azimuthal equidistant projection in cartesian coordinate with orientation.
 
     Returned array is in radian,
     has the last dimension with 3 elements,
@@ -205,8 +232,20 @@ class Quaternion:
         return Quaternion.from_array_complex(rotate(self.array_complex, other.array_complex))
 
     @cached_property
+    def azimuthal_equidistant_projection_polar_with_orientation(self) -> np.ndarray[np.float_]:
+        """Convert from detector pointing to Azimuthal equidistant projection in polar coordinate with orientation.
+
+        Returned array is in radian,
+        has the last dimension with 3 elements,
+        1st as the angular distance to North pole,
+        2nd as the azimuth,
+        3rd as the orientation in angle.
+        """
+        return quat_to_azimuthal_equidistant_projection_polar_with_orientation(self.array_complex)
+
+    @cached_property
     def azimuthal_equidistant_projection_with_orientation(self) -> np.ndarray[np.float_]:
-        """Convert from detector pointing to Azimuthal equidistant projection with orientation.
+        """Convert from detector pointing to Azimuthal equidistant projection in cartesian coordinate with orientation.
 
         Returned array is in radian,
         has the last dimension with 3 elements,
