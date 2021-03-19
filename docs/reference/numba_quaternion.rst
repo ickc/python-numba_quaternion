@@ -1,5 +1,5 @@
 numba_quaternion
-============
+================
 
 .. testsetup::
 

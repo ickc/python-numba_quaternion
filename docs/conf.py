@@ -1,47 +1,50 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+import sphinx_bootstrap_theme
 
-import sphinx_py3doc_enhanced_theme
+html_css_files = [
+    "https://cdn.jsdelivr.net/gh/ickc/markdown-latex-css/css/_table.min.css",
+    "https://cdn.jsdelivr.net/gh/ickc/markdown-latex-css/fonts/fonts.min.css",
+]
 
 extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.autosummary',
-    'sphinx.ext.coverage',
-    'sphinx.ext.doctest',
-    'sphinx.ext.extlinks',
-    'sphinx.ext.ifconfig',
-    'sphinx.ext.napoleon',
-    'sphinx.ext.todo',
-    'sphinx.ext.viewcode',
+    "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.coverage",
+    "sphinx.ext.doctest",
+    "sphinx.ext.extlinks",
+    "sphinx.ext.ifconfig",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.todo",
+    "sphinx.ext.viewcode",
+    "sphinxcontrib.apidoc",
 ]
-source_suffix = '.rst'
-master_doc = 'index'
-project = 'numba_quaternion'
-year = '2021'
-author = 'Kolen Cheung'
-copyright = '{0}, {1}'.format(year, author)
-version = release = '0.1.0'
+source_suffix = ".rst"
+master_doc = "index"
+project = "numba_quaternion"
+year = "2021"
+author = "Kolen Cheung"
+copyright = f"{year}, {author}"
+version = release = "0.1.0"
 
-pygments_style = 'trac'
-templates_path = ['.']
-extlinks = {
-    'issue': ('https://github.com/ickc/python-numba_quaternion/issues/%s', '#'),
-    'pr': ('https://github.com/ickc/python-numba_quaternion/pull/%s', 'PR #'),
-}
-html_theme = "sphinx_py3doc_enhanced_theme"
-html_theme_path = [sphinx_py3doc_enhanced_theme.get_html_theme_path()]
+pygments_style = "solarizedlight"
+html_theme = "bootstrap"
+html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 html_theme_options = {
-    'githuburl': 'https://github.com/ickc/python-numba_quaternion/'
+    "navbar_links": [("GitHub", "https://github.com/ickc/numba_quaternion/", True,)],
+    "source_link_position": None,
+    "bootswatch_theme": "readable",
+    "bootstrap_version": "3",
 }
 
 html_use_smartypants = True
-html_last_updated_fmt = '%b %d, %Y'
+html_last_updated_fmt = "%b %d, %Y"
 html_split_index = False
-html_sidebars = {
-   '**': ['searchbox.html', 'globaltoc.html', 'sourcelink.html'],
-}
-html_short_title = '%s-%s' % (project, version)
+html_short_title = f"{project}-{version}"
 
 napoleon_use_ivar = True
 napoleon_use_rtype = False
 napoleon_use_param = False
+
+# sphinxcontrib.apidoc
+apidoc_module_dir = '../src/numba_quaternion'
+apidoc_separate_modules = True
+apidoc_module_first = True

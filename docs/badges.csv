@@ -1,0 +1,31 @@
+docs,"
+[![Documentation Status](https://readthedocs.org/projects/python-numba_quaternion/badge/?version=latest)](https://python-numba_quaternion.readthedocs.io/en/latest/?badge=latest&style=plastic)
+[![Documentation Status](https://github.com/ickc/python-numba_quaternion/workflows/GitHub%20Pages/badge.svg)](https://ickc.github.io/python-numba_quaternion)
+"
+tests,"
+![GitHub Actions](https://github.com/ickc/python-numba_quaternion/workflows/Python%20package/badge.svg)
+[![Coverage Status](https://codecov.io/gh/ickc/python-numba_quaternion/branch/master/graphs/badge.svg?branch=master)](https://codecov.io/github/ickc/python-numba_quaternion)
+<!--[![Coverage Status](https://coveralls.io/repos/ickc/python-numba_quaternion/badge.svg?branch=master&service=github)](https://coveralls.io/r/ickc/python-numba_quaternion)-->
+
+[![Codacy Code Quality Status](https://img.shields.io/codacy/grade/078ebc537c5747f68c1d4ad3d3594bbf.svg)](https://www.codacy.com/app/ickc/python-numba_quaternion)
+[![Scrutinizer Status](https://img.shields.io/scrutinizer/quality/g/ickc/python-numba_quaternion/master.svg)](https://scrutinizer-ci.com/g/ickc/python-numba_quaternion/)
+[![CodeClimate Quality Status](https://codeclimate.com/github/ickc/python-numba_quaternion/badges/gpa.svg)](https://codeclimate.com/github/ickc/python-numba_quaternion)
+"
+package,"
+[![Supported versions](https://img.shields.io/pypi/pyversions/python-numba_quaternion.svg)](https://pypi.org/project/python-numba_quaternion)
+[![Supported implementations](https://img.shields.io/pypi/implementation/python-numba_quaternion.svg)](https://pypi.org/project/python-numba_quaternion)
+[![PyPI Wheel](https://img.shields.io/pypi/wheel/python-numba_quaternion.svg)](https://pypi.org/project/python-numba_quaternion)
+
+[![PyPI Package latest release](https://img.shields.io/pypi/v/python-numba_quaternion.svg)](https://pypi.org/project/python-numba_quaternion)
+[![GitHub Releases](https://img.shields.io/github/tag/ickc/python-numba_quaternion.svg?label=github+release)](https://github.com/ickc/python-numba_quaternion/releases)
+[![Development Status](https://img.shields.io/pypi/status/python-numba_quaternion.svg)](https://pypi.python.org/pypi/python-numba_quaternion/)
+[![Downloads](https://img.shields.io/pypi/dm/python-numba_quaternion.svg)](https://pypi.python.org/pypi/python-numba_quaternion/)
+
+[![Commits since latest release](https://img.shields.io/github/commits-since/ickc/python-numba_quaternion/v0.13.4.svg)](https://github.com/ickc/python-numba_quaternion/compare/v0.13.4...master)
+![License](https://img.shields.io/pypi/l/python-numba_quaternion.svg)
+"
+conda-forge,"
+[![Conda Recipe](https://img.shields.io/badge/recipe-python-numba_quaternion-green.svg)](https://anaconda.org/conda-forge/python-numba_quaternion)
+[![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/python-numba_quaternion.svg)](https://anaconda.org/conda-forge/python-numba_quaternion)
+[![Conda Version](https://img.shields.io/conda/vn/conda-forge/python-numba_quaternion.svg)](https://anaconda.org/conda-forge/python-numba_quaternion)
+[![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/python-numba_quaternion.svg)](https://anaconda.org/conda-forge/python-numba_quaternion)"
