@@ -28,39 +28,39 @@ except ValueError:
     logger.error(f'Unknown COSCONLOGLEVEL {level}, set to default WARNING.')
 
 
-@jit(nopython=True, nogil=True)
+@jit(nopython=True, nogil=True, cache=True)
 def lastcol_quat_to_canonical(quat: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
     """Convert from real-part-in-last-column to real-part-in-first-column"""
     return np.ascontiguousarray(quat[..., np.array([3, 0, 1, 2])])
 
 
-@jit(nopython=True, nogil=True)
+@jit(nopython=True, nogil=True, cache=True)
 def canonical_quat_to_lastcol(quat: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
     """Convert from real-part-in-first-column to real-part-in-last-column"""
     return np.ascontiguousarray(quat[..., np.array([1, 2, 3, 0])])
 
 
-@jit(nopython=True, nogil=True)
+@jit(nopython=True, nogil=True, cache=True)
 def float64_to_complex128(array):
     return array.view(np.complex128)
 
 
-@jit(nopython=True, nogil=True)
+@jit(nopython=True, nogil=True, cache=True)
 def float32_to_complex64(array):
     return array.view(np.complex64)
 
 
-@jit(nopython=True, nogil=True)
+@jit(nopython=True, nogil=True, cache=True)
 def complex128_to_float64(array):
     return array.view(np.float64)
 
 
-@jit(nopython=True, nogil=True)
+@jit(nopython=True, nogil=True, cache=True)
 def complex64_to_float32(array):
     return array.view(np.float32)
 
 
-@generated_jit(nopython=True, nogil=True)
+@generated_jit(nopython=True, nogil=True, cache=True)
 def float_to_complex(array):
     dtype = str(array.dtype)
     if dtype == 'float64':
@@ -69,7 +69,7 @@ def float_to_complex(array):
         return float32_to_complex64
 
 
-@generated_jit(nopython=True, nogil=True)
+@generated_jit(nopython=True, nogil=True, cache=True)
 def complex_to_float(array):
     dtype = str(array.dtype)
     if dtype == 'complex128':
@@ -78,7 +78,7 @@ def complex_to_float(array):
         return complex64_to_float32
 
 
-@jit(nopython=True, nogil=True)
+@jit(nopython=True, nogil=True, cache=True)
 def mul(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> np.ndarray[np.complex_]:
     """Perform quarternion multiplication using complex multiplication"""
     A = p[..., 0]
@@ -90,7 +90,7 @@ def mul(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> np.ndarray[np
     return np.stack((real_i_part, jk_part), -1)
 
 
-@jit(nopython=True, nogil=True)
+@jit(nopython=True, nogil=True, cache=True)
 def matmul(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> np.ndarray[np.complex_]:
     """Perform quarternion matrix multiplication using complex matrix multiplication"""
     A = p[..., 0]
@@ -102,7 +102,7 @@ def matmul(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> np.ndarray
     return np.stack((real_i_part, jk_part), -1)
 
 
-@jit(nopython=True, nogil=True)
+@jit(nopython=True, nogil=True, cache=True)
 def conjugate(p: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
     res = np.empty_like(p)
     res[..., 0] = p[..., 0]
@@ -110,28 +110,28 @@ def conjugate(p: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
     return res
 
 
-@jit(nopython=True, nogil=True)
+@jit(nopython=True, nogil=True, cache=True)
 def norm(p: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
     return np.square(p).sum(axis=-1)
 
 
-@jit(nopython=True, nogil=True)
+@jit(nopython=True, nogil=True, cache=True)
 def abs(p: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
     return np.sqrt(norm(p))
 
 
-@jit(nopython=True, nogil=True)
+@jit(nopython=True, nogil=True, cache=True)
 def inverse(p: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
     return conjugate(p) / norm(p).reshape(*p.shape[:-1], 1)
 
 
-@jit(nopython=True, nogil=True)
+@jit(nopython=True, nogil=True, cache=True)
 def rotate(p: np.ndarray[np.complex_], v: np.ndarray[np.complex_]) -> np.ndarray[np.complex_]:
     p_inv = float_to_complex(inverse(complex_to_float(p)))
     return mul(mul(p, v), p_inv)
 
 
-@jit(nopython=True, nogil=True)
+@jit(nopython=True, nogil=True, cache=True)
 def quat_to_azimuthal_equidistant_projection_polar_with_orientation(quats: np.ndarray[np.complex_]) -> np.ndarray[np.float_]:
     """Convert from detector pointing to Azimuthal equidistant projection in polar coordinate with orientation.
 
@@ -158,7 +158,7 @@ def quat_to_azimuthal_equidistant_projection_polar_with_orientation(quats: np.nd
     )
 
 
-@jit(nopython=True, nogil=True)
+@jit(nopython=True, nogil=True, cache=True)
 def quat_to_azimuthal_equidistant_projection_with_orientation(quats: np.ndarray[np.complex_]) -> np.ndarray[np.float_]:
     """Convert from detector pointing to Azimuthal equidistant projection in cartesian coordinate with orientation.
 
