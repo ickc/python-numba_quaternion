@@ -1,0 +1,7 @@
+numba\_quaternion package
+=========================
+
+.. automodule:: numba_quaternion
+   :members:
+   :undoc-members:
+   :show-inheritance:

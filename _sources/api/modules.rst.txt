@@ -1,0 +1,7 @@
+numba_quaternion
+================
+
+.. toctree::
+   :maxdepth: 4
+
+   numba_quaternion
