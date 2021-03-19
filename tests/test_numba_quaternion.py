@@ -36,6 +36,25 @@ q_answer[:, :, 0] = m1_m2
 
 
 @pytest.mark.parametrize(
+    "array",
+    [
+        random_array,
+        random_array.astype(np.float32),
+        random_array_broadcast,
+        random_array_broadcast.astype(np.float32),
+    ]
+)
+def test_rotation_matrix(array):
+    test_array = numba_quaternion.Quaternion(array).normalize
+    m = test_array.to_rotation_matrix
+    assert m.shape[-2] == 3
+    assert m.shape[-1] == 3
+    res = numba_quaternion.Quaternion.from_rotation_matrix(m)
+    atol = 1e15 if array.dtype == np.float64 else 1e5
+    np.testing.assert_allclose(res.array, test_array.array, atol=atol)
+
+
+@pytest.mark.parametrize(
     "array1,array2,answer",
     [
         (q1, q2, q_answer),

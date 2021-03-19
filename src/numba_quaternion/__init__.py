@@ -41,27 +41,27 @@ def canonical_quat_to_lastcol(quat: np.ndarray[np.float_]) -> np.ndarray[np.floa
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def float64_to_complex128(array):
+def float64_to_complex128(array: np.ndarray[np.float64]) -> np.ndarray[np.complex128]:
     return array.view(np.complex128)
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def float32_to_complex64(array):
+def float32_to_complex64(array: np.ndarray[np.float32]) -> np.ndarray[np.complex64]:
     return array.view(np.complex64)
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def complex128_to_float64(array):
+def complex128_to_float64(array: np.ndarray[np.complex128]) -> np.ndarray[np.float64]:
     return array.view(np.float64)
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def complex64_to_float32(array):
+def complex64_to_float32(array: np.ndarray[np.complex64]) -> np.ndarray[np.float32]:
     return array.view(np.float32)
 
 
 @generated_jit(nopython=True, nogil=True, cache=True)
-def float_to_complex(array):
+def float_to_complex(array: np.ndarray[np.float_]) -> np.ndarray[np.complex_]:
     dtype = str(array.dtype)
     if dtype == 'float64':
         return float64_to_complex128
@@ -70,7 +70,7 @@ def float_to_complex(array):
 
 
 @generated_jit(nopython=True, nogil=True, cache=True)
-def complex_to_float(array):
+def complex_to_float(array: np.ndarray[np.complex_]) -> np.ndarray[np.float_]:
     dtype = str(array.dtype)
     if dtype == 'complex128':
         return complex128_to_float64
@@ -101,6 +101,40 @@ def matmul(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> np.ndarray
     jk_part = B @ np.conjugate(C) + A @ D
     return np.stack((real_i_part, jk_part), -1)
 
+
+@jit(nopython=True, nogil=True, cache=True)
+def quat_to_rotation_matrix(quats: np.ndarray[np.complex_]) -> np.ndarray[np.float_]:
+    """Convert quaternion to rotation matrix.
+    """
+    x_axis = np.array([1.j, 0.], dtype=quats.dtype)
+    y_axis = np.array([0. , 1.], dtype=quats.dtype)
+    z_axis = np.array([0., 1.j], dtype=quats.dtype)
+    R_x = complex_to_float(rotate(quats, x_axis))[..., 1:]
+    R_y = complex_to_float(rotate(quats, y_axis))[..., 1:]
+    R_z = complex_to_float(rotate(quats, z_axis))[..., 1:]
+    return np.stack((R_x, R_y, R_z), -1)
+
+
+@jit(nopython=True, nogil=True, cache=True)
+def rotation_matrix_to_quat(m: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
+    """Convert rotation matrix to quaternion.
+
+    See https://en.wikipedia.org/wiki/Rotation_matrix#Quaternion
+    """
+    Q_xx = m[..., 0, 0]
+    Q_xy = m[..., 0, 1]
+    Q_xz = m[..., 0, 2]
+    Q_yx = m[..., 1, 0]
+    Q_yy = m[..., 1, 1]
+    Q_yz = m[..., 1, 2]
+    Q_zx = m[..., 2, 0]
+    Q_zy = m[..., 2, 1]
+    Q_zz = m[..., 2, 2]
+    w =  0.5                         * np.sqrt(1. + Q_xx + Q_yy + Q_zz)
+    x = (0.5 * np.sign(Q_zy - Q_yz)) * np.sqrt(1. + Q_xx - Q_yy - Q_zz)
+    y = (0.5 * np.sign(Q_xz - Q_zx)) * np.sqrt(1. - Q_xx + Q_yy - Q_zz)
+    z = (0.5 * np.sign(Q_yx - Q_xy)) * np.sqrt(1. - Q_xx - Q_yy + Q_zz)
+    return np.stack((w, x, y, z), -1)
 
 @jit(nopython=True, nogil=True, cache=True)
 def conjugate(p: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
@@ -193,6 +227,24 @@ class Quaternion:
     def __post_init__(self):
         assert self.array.shape[-1] == 4
 
+    def clear_cache(self):
+        try:
+            del self.array_complex
+        except AttributeError:
+            pass
+        try:
+            del self.azimuthal_equidistant_projection_polar_with_orientation
+        except AttributeError:
+            pass
+        try:
+            del self.azimuthal_equidistant_projection_with_orientation
+        except AttributeError:
+            pass
+        try:
+            del self.to_rotation_matrix
+        except AttributeError:
+            pass
+
     @cached_property
     def array_complex(self) -> np.ndarray[np.complex_]:
         return float_to_complex(self.array)
@@ -201,31 +253,41 @@ class Quaternion:
         return Quaternion(self.array + other.array)
 
     def __iadd__(self, other: Quaternion):
+        self.clear_cache()
         self.array += other.array
 
     def __mul__(self, other: Quaternion) -> Quaternion:
         return Quaternion.from_array_complex(mul(self.array_complex, other.array_complex))
 
     def __imul__(self, other: Quaternion):
+        self.clear_cache()
         self.array = complex_to_float(mul(self.array_complex, other.array_complex))
 
     def __matmul__(self, other: Quaternion) -> Quaternion:
         return Quaternion.from_array_complex(matmul(self.array_complex, other.array_complex))
 
+    def __imatmul__(self, other: Quaternion) -> Quaternion:
+        self.clear_cache()
+        self.array = complex_to_float(matmul(self.array_complex, other.array_complex))
+
     @property
-    def conjugate(self):
+    def conjugate(self) -> Quaternion:
         return Quaternion(conjugate(self.array))
 
     @property
-    def norm(self):
-        return Quaternion(norm(self.array))
+    def norm(self) -> np.ndarray[np.float_]:
+        return norm(self.array)
 
     @property
-    def abs(self):
-        return Quaternion(abs(self.array))
+    def abs(self) -> np.ndarray[np.float_]:
+        return abs(self.array)
 
     @property
-    def inverse(self):
+    def normalize(self) -> Quaternion:
+        return Quaternion(self.array / self.abs[..., np.newaxis])
+
+    @property
+    def inverse(self) -> Quaternion:
         return Quaternion(inverse(self.array))
 
     def rotate(self, other: Quaternion) -> Quaternion:
@@ -258,3 +320,11 @@ class Quaternion:
     @classmethod
     def from_array_complex(cls, array_complex: np.ndarray[np.complex_]) -> Quaternion:
         return cls(complex_to_float(array_complex))
+
+    @classmethod
+    def from_rotation_matrix(cls, array: np.ndarray[np.float_]) -> Quaternion:
+        return cls(rotation_matrix_to_quat(array))
+
+    @cached_property
+    def to_rotation_matrix(self) -> np.ndarray[np.float_]:
+        return quat_to_rotation_matrix(self.array_complex)
