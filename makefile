@@ -64,7 +64,7 @@ pypi:
 ## Manually
 pypiManual:
 	rm -rf dist
-	tox -e check
+	# tox -e check
 	poetry build
 	twine upload dist/*
 
