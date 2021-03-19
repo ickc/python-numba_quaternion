@@ -1,20 +1,19 @@
 readme.rst:16: [broken] https://codecov.io/github/ickc/python-numba_quaternion: 403 Client Error: Forbidden for url: https://codecov.io/github/ickc/python-numba_quaternion
-contributing.rst:40: [broken] https://github.com/ickc/python-numba_quaternion: 404 Client Error: Not Found for url: https://github.com/ickc/python-numba_quaternion
-readme.rst:18: [broken] https://codeclimate.com/github/ickc/python-numba_quaternion: 404 Client Error: Not Found for url: https://codeclimate.com/github/ickc/python-numba_quaternion
 readme.rst:18: [broken] https://codeclimate.com/github/ickc/python-numba_quaternion/badges/gpa.svg: 404 Client Error: Not Found for url: https://codeclimate.com/github/ickc/python-numba_quaternion/badges/gpa.svg
+readme.rst:18: [broken] https://codeclimate.com/github/ickc/python-numba_quaternion: 404 Client Error: Not Found for url: https://codeclimate.com/github/ickc/python-numba_quaternion
 readme.rst:26: [redirected with Found] https://anaconda.org/conda-forge/python-numba_quaternion to https://anaconda.org/account/login?next=%2Fconda-forge%2Fpython-numba_quaternion
+contributing.rst:40: [broken] https://github.com/ickc/python-numba_quaternion: 404 Client Error: Not Found for url: https://github.com/ickc/python-numba_quaternion
 readme.rst:24: [broken] https://github.com/ickc/python-numba_quaternion/compare/v0.13.4...master: 404 Client Error: Not Found for url: https://github.com/ickc/python-numba_quaternion/compare/v0.13.4...master
 contributing.rst:11: [broken] https://github.com/ickc/python-numba_quaternion/issues: 404 Client Error: Not Found for url: https://github.com/ickc/python-numba_quaternion/issues
-readme.rst:22: [broken] https://github.com/ickc/python-numba_quaternion/releases: 404 Client Error: Not Found for url: https://github.com/ickc/python-numba_quaternion/releases
-readme.rst:36: [broken] https://github.com/ickc/python-numba_quaternion/workflows/Python%20package/badge.svg: 404 Client Error: Not Found for url: https://github.com/ickc/python-numba_quaternion/workflows/Python%20package/badge.svg
-readme.rst:14: [broken] https://ickc.github.io/python-numba_quaternion: 404 Client Error: Not Found for url: https://ickc.github.io/python-numba_quaternion
 readme.rst:14: [broken] https://github.com/ickc/python-numba_quaternion/workflows/GitHub%20Pages/badge.svg: 404 Client Error: Not Found for url: https://github.com/ickc/python-numba_quaternion/workflows/GitHub%20Pages/badge.svg
+readme.rst:54: [broken] https://github.com/ickc/python-numba_quaternion/workflows/Python%20package/badge.svg: 404 Client Error: Not Found for url: https://github.com/ickc/python-numba_quaternion/workflows/Python%20package/badge.svg
+readme.rst:22: [broken] https://github.com/ickc/python-numba_quaternion/releases: 404 Client Error: Not Found for url: https://github.com/ickc/python-numba_quaternion/releases
 readme.rst:26: [broken] https://img.shields.io/badge/recipe-python-numba_quaternion-green.svg: 404 Client Error: Not Found for url: https://img.shields.io/badge/recipe-python-numba_quaternion-green.svg
 readme.rst:22: [redirected permanently] https://img.shields.io/github/tag/ickc/python-numba_quaternion.svg?label=github+release to https://img.shields.io/github/v/tag/ickc/python-numba_quaternion.svg?label=github%20release&sort=semver
 readme.rst:20: [broken] https://pypi.org/project/python-numba_quaternion: 404 Client Error: Not Found for url: https://pypi.org/project/python-numba_quaternion/
 readme.rst:22: [broken] https://pypi.python.org/pypi/python-numba_quaternion/: 404 Client Error: Not Found for url: https://pypi.org/project/python-numba_quaternion/
 readme.rst:14: [redirected with Found] https://readthedocs.org/projects/python-numba_quaternion/badge/?version=latest to https://readthedocs.org/projects/python-numba-quaternion/badge/?version=latest
-authors.rst:5: [broken] https://python-numba_quaternion.readthedocs.io/: 404 Client Error: Not Found for url: https://python-numba-quaternion.readthedocs.io/
 readme.rst:14: [broken] https://python-numba_quaternion.readthedocs.io/en/latest/?badge=latest&style=plastic: 404 Client Error: Not Found for url: https://python-numba-quaternion.readthedocs.io/en/latest/
-readme.rst:18: [broken] https://scrutinizer-ci.com/g/ickc/python-numba_quaternion/: 404 Client Error: Not Found for url: https://scrutinizer-ci.com/g/ickc/python-numba_quaternion/
+authors.rst:5: [broken] https://python-numba_quaternion.readthedocs.io/: 404 Client Error: Not Found for url: https://python-numba-quaternion.readthedocs.io/
 readme.rst:18: [redirected with See Other] https://www.codacy.com/app/ickc/python-numba_quaternion to https://app.codacy.com/manual/ickc/python-numba_quaternion
+readme.rst:18: [broken] https://scrutinizer-ci.com/g/ickc/python-numba_quaternion/: 404 Client Error: Not Found for url: https://scrutinizer-ci.com/g/ickc/python-numba_quaternion/

@@ -79,6 +79,7 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">numba_quaternion—quaternion operations that can be used within Numba-jit functions</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#other-python-quaternion-projects">Other Python quaternion projects</a></li>
 </ul>
 </li>
 </ul>
@@ -135,6 +136,7 @@
 <li><p><a class="reference internal" href="#numba-quaternionquaternion-operations-that-can-be-used-within-numba-jit-functions" id="id1">numba_quaternion—quaternion operations that can be used within Numba-jit functions</a></p>
 <ul>
 <li><p><a class="reference internal" href="#introduction" id="id2">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#other-python-quaternion-projects" id="id3">Other Python quaternion projects</a></p></li>
 </ul>
 </li>
 </ul>
@@ -168,6 +170,20 @@
 </table>
 <div class="section" id="introduction">
 <h2><a class="toc-backref" href="#id2">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This package contains some numba-jit-compiled functions that perform Quaternion operations and a convenient class <code class="docutils literal notranslate"><span class="pre">Quaternion</span></code> that provide convenient methods wrapping around those functions.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Quaternion</span></code> behaves like a Numpy array containing quaternion, e.g. respect Numpy broadcast operations, but without really imitating a <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> and implemented a <code class="docutils literal notranslate"><span class="pre">dtype</span></code>.</p>
+<p>This design allows you to write any jit-compiled functions involving those provided jit-compiled functions, and then write your own class methods that calls those functions as a convenient interface (by class inheritance.)</p>
+<p>If you do not care to use Quaternion in other jit-compiled functions you write, check out packages below instead.</p>
+</div>
+<div class="section" id="other-python-quaternion-projects">
+<h2><a class="toc-backref" href="#id3">Other Python quaternion projects</a><a class="headerlink" href="#other-python-quaternion-projects" title="Permalink to this headline">¶</a></h2>
+<p>Other Python projects that implements quaternions and I knew and used are:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/zonca/quaternionarray">zonca/quaternionarray</a>: written in pure Python using Numpy. Note that unusually they put the real part in the last column. <code class="docutils literal notranslate"><span class="pre">lastcol_quat_to_canonical</span></code> and <code class="docutils literal notranslate"><span class="pre">canonical_quat_to_lastcol</span></code> convert between those and the canonical ordering (where real part comes first.)</p></li>
+<li><p><a class="reference external" href="https://github.com/hpc4cmb/toast">hpc4cmb/toast</a>: toast.qarray is a reimplementation of the above quaternionarray package in C++ with the same interface, and following the same convention.</p></li>
+<li><p><a class="reference external" href="https://github.com/moble/quaternion">moble/quaternion</a>: implement Quaternion as a Numpy dtype in C.</p></li>
+<li><p><a class="reference external" href="https://github.com/moble/quaternionic">moble/quaternionic</a>: implement Quaternion as a Numpy dtype using Numba. This package is inspired by my expectation of quaternionic—I expected I could use them in a Numba-jit-compiled function but it doesn’t.</p></li>
+</ul>
 </div>
 </div>
 
