@@ -60,7 +60,7 @@ dist/docs/:
 # Deploy to PyPI
 ## by CI, properly git tagged
 pypi:
-	git push origin v0.1.0
+	git push origin v0.2.0
 ## Manually
 pypiManual:
 	rm -rf dist
@@ -88,9 +88,9 @@ print-%:
 # temporary remove pyproject.toml and ask pip to install from setup.py instead.
 editable:
 	poetry build
-	cd dist; tar -xf numba_quaternion-0.1.0.tar.gz numba_quaternion-0.1.0/setup.py
-	mv dist/numba_quaternion-0.1.0/setup.py .
-	rm -rf dist/numba_quaternion-0.1.0
+	cd dist; tar -xf numba_quaternion-0.2.0.tar.gz numba_quaternion-0.2.0/setup.py
+	mv dist/numba_quaternion-0.2.0/setup.py .
+	rm -rf dist/numba_quaternion-0.2.0
 	mv pyproject.toml .pyproject.toml
 	$(_python) -m pip install -e .$(EXTRAS); mv .pyproject.toml pyproject.toml
 
