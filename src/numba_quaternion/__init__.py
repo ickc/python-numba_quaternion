@@ -301,6 +301,10 @@ class Quaternion:
         except AttributeError:
             pass
         try:
+            del self.lastcol_array
+        except AttributeError:
+            pass
+        try:
             del self.azimuthal_equidistant_projection_polar_with_orientation
         except AttributeError:
             pass
@@ -316,6 +320,10 @@ class Quaternion:
     @cached_property
     def array(self) -> np.ndarray[np.float_]:
         return complex_to_float(self.array_complex)
+
+    @cached_property
+    def lastcol_array(self) -> np.ndarray[np.float_]:
+        return canonical_quat_to_lastcol(complex_to_float(self.array_complex))
 
     def __add__(self, other: Quaternion) -> Quaternion:
         return Quaternion(self.array + other.array)
@@ -387,7 +395,17 @@ class Quaternion:
 
     @classmethod
     def from_array(cls, array: np.ndarray[np.float_]) -> Quaternion:
+        """Create Quaternion from real array with last axis as w, x, y, z.
+        """
         return cls(float_to_complex(array))
+
+    @classmethod
+    def from_lastcol_array(cls, array: np.ndarray[np.float_]) -> Quaternion:
+        """Create Quaternion from real array with last axis as x, y, z, w.
+
+        Convention used in TOAST.
+        """
+        return cls(float_to_complex(lastcol_quat_to_canonical(array)))
 
     @classmethod
     def from_rotation_matrix(cls, array: np.ndarray[np.float_]) -> Quaternion:
