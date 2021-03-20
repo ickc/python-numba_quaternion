@@ -1,41 +1,41 @@
 {"filename": "index.rst", "lineno": 19, "status": "unchecked", "code": 0, "uri": "", "info": ""}
 {"filename": "readme.rst", "lineno": 16, "status": "working", "code": 0, "uri": "https://codecov.io/gh/ickc/python-numba_quaternion/branch/master/graphs/badge.svg?branch=master", "info": ""}
-{"filename": "api/numba_quaternion.rst", "lineno": 3, "status": "working", "code": 0, "uri": "https://en.wikipedia.org/wiki/Rotation_matrix#Quaternion", "info": ""}
 {"filename": "readme.rst", "lineno": 16, "status": "working", "code": 0, "uri": "https://codecov.io/github/ickc/python-numba_quaternion", "info": ""}
+{"filename": "api/numba_quaternion.rst", "lineno": 3, "status": "working", "code": 0, "uri": "https://en.wikipedia.org/wiki/Rotation_matrix#Quaternion", "info": ""}
 {"filename": "readme.rst", "lineno": 26, "status": "redirected", "code": 302, "uri": "https://anaconda.org/conda-forge/python-numba_quaternion", "info": "https://anaconda.org/account/login?next=%2Fconda-forge%2Fpython-numba_quaternion", "text": "with Found"}
 {"filename": "contributing.rst", "lineno": 40, "status": "working", "code": 0, "uri": "https://github.com/ickc/python-numba_quaternion", "info": ""}
-{"filename": "readme.rst", "lineno": 18, "status": "broken", "code": 0, "uri": "https://codeclimate.com/github/ickc/python-numba_quaternion/badges/gpa.svg", "info": "404 Client Error: Not Found for url: https://codeclimate.com/github/ickc/python-numba_quaternion/badges/gpa.svg"}
 {"filename": "readme.rst", "lineno": 18, "status": "broken", "code": 0, "uri": "https://codeclimate.com/github/ickc/python-numba_quaternion", "info": "404 Client Error: Not Found for url: https://codeclimate.com/github/ickc/python-numba_quaternion"}
+{"filename": "readme.rst", "lineno": 18, "status": "broken", "code": 0, "uri": "https://codeclimate.com/github/ickc/python-numba_quaternion/badges/gpa.svg", "info": "404 Client Error: Not Found for url: https://codeclimate.com/github/ickc/python-numba_quaternion/badges/gpa.svg"}
 {"filename": "readme.rst", "lineno": 46, "status": "working", "code": 0, "uri": "https://github.com/hpc4cmb/toast", "info": ""}
 {"filename": "readme.rst", "lineno": 54, "status": "working", "code": 0, "uri": "https://github.com/ickc/python-numba_quaternion/workflows/Python%20package/badge.svg", "info": ""}
 {"filename": "contributing.rst", "lineno": 11, "status": "working", "code": 0, "uri": "https://github.com/ickc/python-numba_quaternion/issues", "info": ""}
 {"filename": "readme.rst", "lineno": 22, "status": "working", "code": 0, "uri": "https://github.com/ickc/python-numba_quaternion/releases", "info": ""}
-{"filename": "readme.rst", "lineno": 24, "status": "working", "code": 0, "uri": "https://github.com/ickc/python-numba_quaternion/compare/v0.2.0...master", "info": ""}
 {"filename": "readme.rst", "lineno": 14, "status": "broken", "code": 0, "uri": "https://github.com/ickc/python-numba_quaternion/workflows/GitHub%20Pages/badge.svg", "info": "404 Client Error: Not Found for url: https://github.com/ickc/python-numba_quaternion/workflows/GitHub%20Pages/badge.svg"}
+{"filename": "readme.rst", "lineno": 24, "status": "working", "code": 0, "uri": "https://github.com/ickc/python-numba_quaternion/compare/v0.2.0...master", "info": ""}
 {"filename": "readme.rst", "lineno": 14, "status": "working", "code": 0, "uri": "https://ickc.github.io/python-numba_quaternion", "info": ""}
+{"filename": "readme.rst", "lineno": 26, "status": "broken", "code": 0, "uri": "https://img.shields.io/badge/recipe-python-numba_quaternion-green.svg", "info": "404 Client Error: Not Found for url: https://img.shields.io/badge/recipe-python-numba_quaternion-green.svg"}
+{"filename": "readme.rst", "lineno": 47, "status": "working", "code": 0, "uri": "https://github.com/moble/quaternion", "info": ""}
 {"filename": "readme.rst", "lineno": 45, "status": "working", "code": 0, "uri": "https://github.com/zonca/quaternionarray", "info": ""}
 {"filename": "readme.rst", "lineno": 48, "status": "working", "code": 0, "uri": "https://github.com/moble/quaternionic", "info": ""}
-{"filename": "readme.rst", "lineno": 47, "status": "working", "code": 0, "uri": "https://github.com/moble/quaternion", "info": ""}
-{"filename": "readme.rst", "lineno": 26, "status": "broken", "code": 0, "uri": "https://img.shields.io/badge/recipe-python-numba_quaternion-green.svg", "info": "404 Client Error: Not Found for url: https://img.shields.io/badge/recipe-python-numba_quaternion-green.svg"}
-{"filename": "readme.rst", "lineno": 26, "status": "working", "code": 0, "uri": "https://img.shields.io/conda/pn/conda-forge/python-numba_quaternion.svg", "info": ""}
 {"filename": "readme.rst", "lineno": 26, "status": "working", "code": 0, "uri": "https://img.shields.io/conda/vn/conda-forge/python-numba_quaternion.svg", "info": ""}
-{"filename": "readme.rst", "lineno": 24, "status": "working", "code": 0, "uri": "https://img.shields.io/github/commits-since/ickc/python-numba_quaternion/v0.2.0.svg", "info": ""}
-{"filename": "readme.rst", "lineno": 26, "status": "working", "code": 0, "uri": "https://img.shields.io/conda/dn/conda-forge/python-numba_quaternion.svg", "info": ""}
-{"filename": "readme.rst", "lineno": 18, "status": "working", "code": 0, "uri": "https://img.shields.io/codacy/grade/078ebc537c5747f68c1d4ad3d3594bbf.svg", "info": ""}
-{"filename": "readme.rst", "lineno": 79, "status": "working", "code": 0, "uri": "https://img.shields.io/pypi/l/python-numba_quaternion.svg", "info": ""}
 {"filename": "readme.rst", "lineno": 22, "status": "redirected", "code": 301, "uri": "https://img.shields.io/github/tag/ickc/python-numba_quaternion.svg?label=github+release", "info": "https://img.shields.io/github/v/tag/ickc/python-numba_quaternion.svg?label=github%20release&sort=semver", "text": "permanently"}
+{"filename": "readme.rst", "lineno": 26, "status": "working", "code": 0, "uri": "https://img.shields.io/conda/dn/conda-forge/python-numba_quaternion.svg", "info": ""}
+{"filename": "readme.rst", "lineno": 26, "status": "working", "code": 0, "uri": "https://img.shields.io/conda/pn/conda-forge/python-numba_quaternion.svg", "info": ""}
+{"filename": "readme.rst", "lineno": 79, "status": "working", "code": 0, "uri": "https://img.shields.io/pypi/l/python-numba_quaternion.svg", "info": ""}
+{"filename": "readme.rst", "lineno": 24, "status": "working", "code": 0, "uri": "https://img.shields.io/github/commits-since/ickc/python-numba_quaternion/v0.2.0.svg", "info": ""}
 {"filename": "readme.rst", "lineno": 22, "status": "working", "code": 0, "uri": "https://img.shields.io/pypi/dm/python-numba_quaternion.svg", "info": ""}
-{"filename": "readme.rst", "lineno": 20, "status": "working", "code": 0, "uri": "https://img.shields.io/pypi/pyversions/python-numba_quaternion.svg", "info": ""}
-{"filename": "readme.rst", "lineno": 20, "status": "working", "code": 0, "uri": "https://img.shields.io/pypi/implementation/python-numba_quaternion.svg", "info": ""}
+{"filename": "readme.rst", "lineno": 18, "status": "working", "code": 0, "uri": "https://img.shields.io/codacy/grade/078ebc537c5747f68c1d4ad3d3594bbf.svg", "info": ""}
 {"filename": "readme.rst", "lineno": 22, "status": "working", "code": 0, "uri": "https://img.shields.io/pypi/v/python-numba_quaternion.svg", "info": ""}
+{"filename": "readme.rst", "lineno": 20, "status": "working", "code": 0, "uri": "https://img.shields.io/pypi/implementation/python-numba_quaternion.svg", "info": ""}
 {"filename": "readme.rst", "lineno": 22, "status": "working", "code": 0, "uri": "https://img.shields.io/pypi/status/python-numba_quaternion.svg", "info": ""}
+{"filename": "readme.rst", "lineno": 20, "status": "working", "code": 0, "uri": "https://img.shields.io/pypi/pyversions/python-numba_quaternion.svg", "info": ""}
 {"filename": "readme.rst", "lineno": 20, "status": "working", "code": 0, "uri": "https://img.shields.io/pypi/wheel/python-numba_quaternion.svg", "info": ""}
 {"filename": "readme.rst", "lineno": 20, "status": "broken", "code": 0, "uri": "https://pypi.org/project/python-numba_quaternion", "info": "404 Client Error: Not Found for url: https://pypi.org/project/python-numba_quaternion/"}
 {"filename": "readme.rst", "lineno": 22, "status": "broken", "code": 0, "uri": "https://pypi.python.org/pypi/python-numba_quaternion/", "info": "404 Client Error: Not Found for url: https://pypi.org/project/python-numba_quaternion/"}
-{"filename": "readme.rst", "lineno": 14, "status": "redirected", "code": 302, "uri": "https://readthedocs.org/projects/python-numba_quaternion/badge/?version=latest", "info": "https://readthedocs.org/projects/python-numba-quaternion/badge/?version=latest", "text": "with Found"}
+{"filename": "authors.rst", "lineno": 5, "status": "broken", "code": 0, "uri": "https://python-numba_quaternion.readthedocs.io/", "info": "404 Client Error: Not Found for url: https://python-numba-quaternion.readthedocs.io/"}
 {"filename": "contributing.rst", "lineno": 52, "status": "working", "code": 0, "uri": "https://tox.readthedocs.io/en/latest/install.html", "info": ""}
 {"filename": "readme.rst", "lineno": 14, "status": "broken", "code": 0, "uri": "https://python-numba_quaternion.readthedocs.io/en/latest/?badge=latest&style=plastic", "info": "404 Client Error: Not Found for url: https://python-numba-quaternion.readthedocs.io/en/latest/"}
-{"filename": "authors.rst", "lineno": 5, "status": "broken", "code": 0, "uri": "https://python-numba_quaternion.readthedocs.io/", "info": "404 Client Error: Not Found for url: https://python-numba-quaternion.readthedocs.io/"}
 {"filename": "readme.rst", "lineno": 18, "status": "working", "code": 0, "uri": "https://img.shields.io/scrutinizer/quality/g/ickc/python-numba_quaternion/master.svg", "info": ""}
-{"filename": "readme.rst", "lineno": 18, "status": "broken", "code": 0, "uri": "https://scrutinizer-ci.com/g/ickc/python-numba_quaternion/", "info": "404 Client Error: Not Found for url: https://scrutinizer-ci.com/g/ickc/python-numba_quaternion/"}
+{"filename": "readme.rst", "lineno": 14, "status": "redirected", "code": 302, "uri": "https://readthedocs.org/projects/python-numba_quaternion/badge/?version=latest", "info": "https://readthedocs.org/projects/python-numba-quaternion/badge/?version=latest", "text": "with Found"}
 {"filename": "readme.rst", "lineno": 18, "status": "redirected", "code": 303, "uri": "https://www.codacy.com/app/ickc/python-numba_quaternion", "info": "https://app.codacy.com/manual/ickc/python-numba_quaternion", "text": "with See Other"}
+{"filename": "readme.rst", "lineno": 18, "status": "broken", "code": 0, "uri": "https://scrutinizer-ci.com/g/ickc/python-numba_quaternion/", "info": "404 Client Error: Not Found for url: https://scrutinizer-ci.com/g/ickc/python-numba_quaternion/"}

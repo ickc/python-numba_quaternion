@@ -1,6 +1,0 @@
-numba_quaternion
-================
-
-.. testsetup::
-
-    from numba_quaternion import *
