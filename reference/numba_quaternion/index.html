@@ -15,8 +15,6 @@
     <script src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex/" />
     <link rel="search" title="Search" href="../../search/" />
-    <link rel="next" title="Contributing" href="../../contributing/" />
-    <link rel="prev" title="Reference" href="../" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -56,11 +54,11 @@
      href="../../">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul class="current">
+      aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="../../readme/">numba_quaternion—quaternion operations that can be used within Numba-jit functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage/">Usage</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../">Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing/">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../authors/">Authors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog/">Revision history for <code class="docutils literal notranslate"><span class="pre">numba_quaternion</span></code></a></li>
@@ -86,14 +84,6 @@
             
               
                 
-  <li>
-    <a href="../" title="Previous Chapter: Reference"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Reference</span>
-    </a>
-  </li>
-  <li>
-    <a href="../../contributing/" title="Next Chapter: Contributing"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Contributing &raquo;</span>
-    </a>
-  </li>
               
             
             
@@ -121,51 +111,6 @@
       
   <div class="section" id="numba-quaternion">
 <h1>numba_quaternion<a class="headerlink" href="#numba-quaternion" title="Permalink to this headline">¶</a></h1>
-<span class="target" id="module-numba_quaternion"></span><dl class="py class">
-<dt id="numba_quaternion.Quaternion">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">numba_quaternion.</span></code><code class="sig-name descname"><span class="pre">Quaternion</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">np.ndarray[np.float_]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/numba_quaternion/#Quaternion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#numba_quaternion.Quaternion" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="py method">
-<dt id="numba_quaternion.Quaternion.azimuthal_equidistant_projection_with_orientation">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">azimuthal_equidistant_projection_with_orientation</span></code><a class="headerlink" href="#numba_quaternion.Quaternion.azimuthal_equidistant_projection_with_orientation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert from detector pointing to Azimuthal equidistant projection with orientation.</p>
-<p>Returned array is in radian,
-has the last dimension with 3 elements,
-1st as the horizontal angular position,
-2nd as the vertical angular position,
-3rd as the orientation in angle.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="numba_quaternion.canonical_quat_to_lastcol">
-<code class="sig-prename descclassname"><span class="pre">numba_quaternion.</span></code><code class="sig-name descname"><span class="pre">canonical_quat_to_lastcol</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quat</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">np.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">np.float_</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">np.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">np.float_</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../_modules/numba_quaternion/#canonical_quat_to_lastcol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#numba_quaternion.canonical_quat_to_lastcol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert from real-part-in-first-column to real-part-in-last-column</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="numba_quaternion.lastcol_quat_to_canonical">
-<code class="sig-prename descclassname"><span class="pre">numba_quaternion.</span></code><code class="sig-name descname"><span class="pre">lastcol_quat_to_canonical</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quat</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">np.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">np.float_</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">np.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">np.float_</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../_modules/numba_quaternion/#lastcol_quat_to_canonical"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#numba_quaternion.lastcol_quat_to_canonical" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert from real-part-in-last-column to real-part-in-first-column</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="numba_quaternion.mul">
-<code class="sig-prename descclassname"><span class="pre">numba_quaternion.</span></code><code class="sig-name descname"><span class="pre">mul</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">np.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">np.complex_</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">np.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">np.complex_</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">np.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">np.complex_</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../_modules/numba_quaternion/#mul"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#numba_quaternion.mul" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perform quarternion multiplication using complex multiplication</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="numba_quaternion.quat_to_azimuthal_equidistant_projection_with_orientation">
-<code class="sig-prename descclassname"><span class="pre">numba_quaternion.</span></code><code class="sig-name descname"><span class="pre">quat_to_azimuthal_equidistant_projection_with_orientation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quats</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">np.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">np.complex_</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">np.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">np.float_</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../_modules/numba_quaternion/#quat_to_azimuthal_equidistant_projection_with_orientation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#numba_quaternion.quat_to_azimuthal_equidistant_projection_with_orientation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert from detector pointing to Azimuthal equidistant projection with orientation.</p>
-<p>Returned array is in radian,
-has the last dimension with 3 elements,
-1st as the horizontal angular position,
-2nd as the vertical angular position,
-3rd as the orientation in angle.</p>
-</dd></dl>
-
 </div>
 
 
@@ -181,7 +126,7 @@ has the last dimension with 3 elements,
     </p>
     <p>
         &copy; Copyright 2021, Kolen Cheung.<br/>
-      Last updated on Mar 18, 2021.<br/>
+      Last updated on Mar 20, 2021.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.2.<br/>
     </p>
   </div>

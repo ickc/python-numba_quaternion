@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index &#8212; numba_quaternion 0.1.0 documentation</title>
+    <title>Index &#8212; numba_quaternion 0.2.0 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/ickc/markdown-latex-css/css/_table.min.css" />
@@ -37,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="../">
           numba_quaternion</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.0</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.2.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -119,6 +119,7 @@
  | <a href="#N"><strong>N</strong></a>
  | <a href="#Q"><strong>Q</strong></a>
  | <a href="#R"><strong>R</strong></a>
+ | <a href="#T"><strong>T</strong></a>
  
 </div>
 <h2 id="A">A</h2>
@@ -130,13 +131,17 @@
         <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.abs">(numba_quaternion.Quaternion property)</a>
 </li>
       </ul></li>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.array">array() (numba_quaternion.Quaternion property)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.array">array (numba_quaternion.Quaternion attribute)</a>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.array_complex">array_complex (numba_quaternion.Quaternion attribute)</a>
 </li>
-      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.array_complex">array_complex() (numba_quaternion.Quaternion property)</a>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.azimuthal_equidistant_projection_polar_with_orientation">azimuthal_equidistant_projection_polar_with_orientation() (numba_quaternion.Quaternion property)</a>
 </li>
-      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.azimuthal_equidistant_projection_with_orientation">azimuthal_equidistant_projection_with_orientation() (numba_quaternion.Quaternion property)</a>, <a href="../reference/numba_quaternion/#numba_quaternion.Quaternion.azimuthal_equidistant_projection_with_orientation">[1]</a>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.azimuthal_equidistant_projection_polar_with_orientation_to_rotation_matrix">azimuthal_equidistant_projection_polar_with_orientation_to_rotation_matrix() (in module numba_quaternion)</a>
+</li>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.azimuthal_equidistant_projection_with_orientation">azimuthal_equidistant_projection_with_orientation() (numba_quaternion.Quaternion property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -144,14 +149,16 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="../api/numba_quaternion/#numba_quaternion.canonical_quat_to_lastcol">canonical_quat_to_lastcol() (in module numba_quaternion)</a>, <a href="../reference/numba_quaternion/#numba_quaternion.canonical_quat_to_lastcol">[1]</a>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.canonical_quat_to_lastcol">canonical_quat_to_lastcol() (in module numba_quaternion)</a>
+</li>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.clear_cache">clear_cache() (numba_quaternion.Quaternion method)</a>
 </li>
       <li><a href="../api/numba_quaternion/#numba_quaternion.complex128_to_float64">complex128_to_float64() (in module numba_quaternion)</a>
 </li>
-      <li><a href="../api/numba_quaternion/#numba_quaternion.complex64_to_float32">complex64_to_float32() (in module numba_quaternion)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.complex64_to_float32">complex64_to_float32() (in module numba_quaternion)</a>
+</li>
       <li><a href="../api/numba_quaternion/#numba_quaternion.complex_to_float">complex_to_float() (in module numba_quaternion)</a>
 </li>
       <li><a href="../api/numba_quaternion/#numba_quaternion.conjugate">conjugate() (in module numba_quaternion)</a>
@@ -170,11 +177,17 @@
 </li>
       <li><a href="../api/numba_quaternion/#numba_quaternion.float64_to_complex128">float64_to_complex128() (in module numba_quaternion)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="../api/numba_quaternion/#numba_quaternion.float_to_complex">float_to_complex() (in module numba_quaternion)</a>
 </li>
-      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.from_array_complex">from_array_complex() (numba_quaternion.Quaternion class method)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.from_array">from_array() (numba_quaternion.Quaternion class method)</a>
+</li>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.from_azimuthal_equidistant_projection_polar_with_orientation">from_azimuthal_equidistant_projection_polar_with_orientation() (numba_quaternion.Quaternion class method)</a>
+</li>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.from_lastcol_array">from_lastcol_array() (numba_quaternion.Quaternion class method)</a>
+</li>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.from_rotation_matrix">from_rotation_matrix() (numba_quaternion.Quaternion class method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -194,7 +207,11 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="../api/numba_quaternion/#numba_quaternion.lastcol_quat_to_canonical">lastcol_quat_to_canonical() (in module numba_quaternion)</a>, <a href="../reference/numba_quaternion/#numba_quaternion.lastcol_quat_to_canonical">[1]</a>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.lastcol_array">lastcol_array() (numba_quaternion.Quaternion property)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.lastcol_quat_to_canonical">lastcol_quat_to_canonical() (in module numba_quaternion)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -202,16 +219,18 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.matmul">matmul() (in module numba_quaternion)</a>
+</li>
       <li>
     module
 
       <ul>
-        <li><a href="../api/numba_quaternion/#module-numba_quaternion">numba_quaternion</a>, <a href="../reference/numba_quaternion/#module-numba_quaternion">[1]</a>
+        <li><a href="../api/numba_quaternion/#module-numba_quaternion">numba_quaternion</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="../api/numba_quaternion/#numba_quaternion.mul">mul() (in module numba_quaternion)</a>, <a href="../reference/numba_quaternion/#numba_quaternion.mul">[1]</a>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.mul">mul() (in module numba_quaternion)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -227,11 +246,13 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.normalize">normalize() (numba_quaternion.Quaternion property)</a>
+</li>
       <li>
     numba_quaternion
 
       <ul>
-        <li><a href="../api/numba_quaternion/#module-numba_quaternion">module</a>, <a href="../reference/numba_quaternion/#module-numba_quaternion">[1]</a>
+        <li><a href="../api/numba_quaternion/#module-numba_quaternion">module</a>
 </li>
       </ul></li>
   </ul></td>
@@ -240,11 +261,15 @@
 <h2 id="Q">Q</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="../api/numba_quaternion/#numba_quaternion.quat_to_azimuthal_equidistant_projection_with_orientation">quat_to_azimuthal_equidistant_projection_with_orientation() (in module numba_quaternion)</a>, <a href="../reference/numba_quaternion/#numba_quaternion.quat_to_azimuthal_equidistant_projection_with_orientation">[1]</a>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.quat_to_azimuthal_equidistant_projection_polar_with_orientation">quat_to_azimuthal_equidistant_projection_polar_with_orientation() (in module numba_quaternion)</a>
+</li>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.quat_to_azimuthal_equidistant_projection_with_orientation">quat_to_azimuthal_equidistant_projection_with_orientation() (in module numba_quaternion)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion">Quaternion (class in numba_quaternion)</a>, <a href="../reference/numba_quaternion/#numba_quaternion.Quaternion">[1]</a>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.quat_to_rotation_matrix">quat_to_rotation_matrix() (in module numba_quaternion)</a>
+</li>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion">Quaternion (class in numba_quaternion)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -258,6 +283,20 @@
         <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.rotate">(numba_quaternion.Quaternion method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.rotate_2d">rotate_2d() (in module numba_quaternion)</a>
+</li>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.rotation_matrix_to_quat">rotation_matrix_to_quat() (in module numba_quaternion)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="../api/numba_quaternion/#numba_quaternion.Quaternion.to_rotation_matrix">to_rotation_matrix() (numba_quaternion.Quaternion property)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -275,7 +314,7 @@
     </p>
     <p>
         &copy; Copyright 2021, Kolen Cheung.<br/>
-      Last updated on Mar 18, 2021.<br/>
+      Last updated on Mar 20, 2021.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.2.<br/>
     </p>
   </div>
