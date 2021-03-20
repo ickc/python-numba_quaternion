@@ -4,7 +4,7 @@
 numba_quaternion—quaternion operations that can be used within Numba-jit functions
 ==================================================================================
 
-:Date:   March 18, 2021
+:Date:   March 20, 2021
 
 .. contents::
    :depth: 3
@@ -74,8 +74,8 @@ Other Python projects that implements quaternions and I knew and used are:
    :target: https://pypi.python.org/pypi/python-numba_quaternion/
 .. |Downloads| image:: https://img.shields.io/pypi/dm/python-numba_quaternion.svg
    :target: https://pypi.python.org/pypi/python-numba_quaternion/
-.. |Commits since latest release| image:: https://img.shields.io/github/commits-since/ickc/python-numba_quaternion/v0.13.4.svg
-   :target: https://github.com/ickc/python-numba_quaternion/compare/v0.13.4...master
+.. |Commits since latest release| image:: https://img.shields.io/github/commits-since/ickc/python-numba_quaternion/v0.2.0.svg
+   :target: https://github.com/ickc/python-numba_quaternion/compare/v0.2.0...master
 .. |License| image:: https://img.shields.io/pypi/l/python-numba_quaternion.svg
 .. |Conda Recipe| image:: https://img.shields.io/badge/recipe-python-numba_quaternion-green.svg
    :target: https://anaconda.org/conda-forge/python-numba_quaternion
