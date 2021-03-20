@@ -21,7 +21,7 @@ package,"
 [![Development Status](https://img.shields.io/pypi/status/python-numba_quaternion.svg)](https://pypi.python.org/pypi/python-numba_quaternion/)
 [![Downloads](https://img.shields.io/pypi/dm/python-numba_quaternion.svg)](https://pypi.python.org/pypi/python-numba_quaternion/)
 
-[![Commits since latest release](https://img.shields.io/github/commits-since/ickc/python-numba_quaternion/v0.13.4.svg)](https://github.com/ickc/python-numba_quaternion/compare/v0.13.4...master)
+[![Commits since latest release](https://img.shields.io/github/commits-since/ickc/python-numba_quaternion/v0.1.0.svg)](https://github.com/ickc/python-numba_quaternion/compare/v0.1.0...master)
 ![License](https://img.shields.io/pypi/l/python-numba_quaternion.svg)
 "
 conda-forge,"
