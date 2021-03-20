@@ -106,13 +106,23 @@ def matmul(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> np.ndarray
 def quat_to_rotation_matrix(quats: np.ndarray[np.complex_]) -> np.ndarray[np.float_]:
     """Convert quaternion to rotation matrix.
     """
-    x_axis = np.array([1.j, 0.], dtype=quats.dtype)
-    y_axis = np.array([0. , 1.], dtype=quats.dtype)
-    z_axis = np.array([0., 1.j], dtype=quats.dtype)
-    R_x = complex_to_float(rotate(quats, x_axis))[..., 1:]
-    R_y = complex_to_float(rotate(quats, y_axis))[..., 1:]
-    R_z = complex_to_float(rotate(quats, z_axis))[..., 1:]
-    return np.stack((R_x, R_y, R_z), -1)
+    I = np.array(
+        (
+            [1.j, 0.],
+            [0. , 1.],
+            [0., 1.j],
+        ),
+        dtype=quats.dtype,
+    )
+    res = rotate_2d(quats, I)
+    return np.stack(
+        (
+            complex_to_float(res[0])[..., 1:],
+            complex_to_float(res[1])[..., 1:],
+            complex_to_float(res[2])[..., 1:],
+        ),
+        -1,
+    )
 
 
 @jit(nopython=True, nogil=True, cache=True)
@@ -161,8 +171,19 @@ def inverse(p: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
 
 @jit(nopython=True, nogil=True, cache=True)
 def rotate(p: np.ndarray[np.complex_], v: np.ndarray[np.complex_]) -> np.ndarray[np.complex_]:
+    """Rotate v by p respecting Numpy broadcasting rule."""
     p_inv = float_to_complex(inverse(complex_to_float(p)))
     return mul(mul(p, v), p_inv)
+
+
+@jit(nopython=True, nogil=True, cache=True)
+def rotate_2d(p: np.ndarray[np.complex_], v: np.ndarray[np.complex_]) -> List[np.ndarray[np.complex_]]:
+    """Rotate each row of v by p and stack at an axis.
+
+    :param v: 2d-array
+    """
+    p_inv = float_to_complex(inverse(complex_to_float(p)))
+    return [mul(mul(p, row), p_inv) for row in v]
 
 
 @jit(nopython=True, nogil=True, cache=True)
@@ -175,14 +196,18 @@ def quat_to_azimuthal_equidistant_projection_polar_with_orientation(quats: np.nd
     2nd as the azimuth,
     3rd as the orientation in angle.
     """
-    x_axis = np.array([1.j, 0.], dtype=quats.dtype)
-    z_axis = np.array([0., 1.j], dtype=quats.dtype)
+    xz_axes = np.array(
+        (
+            [1.j, 0.],
+            [0., 1.j],
+        ),
+        dtype=quats.dtype,
+    )
     # rotation from boresight
-    r = rotate(quats, z_axis)
+    orients, r = rotate_2d(quats, xz_axes)
     ds = np.arccos(r[:, 1].imag)
     angles = np.arctan2(r[:, 1].real, r[:, 0].imag)
 
-    orients = rotate(quats, x_axis)
     return np.stack(
         (
             ds,
@@ -203,14 +228,18 @@ def quat_to_azimuthal_equidistant_projection_with_orientation(quats: np.ndarray[
     2nd as the vertical angular position,
     3rd as the orientation in angle.
     """
-    x_axis = np.array([1.j, 0.], dtype=quats.dtype)
-    z_axis = np.array([0., 1.j], dtype=quats.dtype)
+    xz_axes = np.array(
+        (
+            [1.j, 0.],
+            [0., 1.j],
+        ),
+        dtype=quats.dtype,
+    )
     # rotation from boresight
-    r = rotate(quats, z_axis)
+    orients, r = rotate_2d(quats, xz_axes)
     ds = np.arccos(r[:, 1].imag)
     angles = np.arctan2(r[:, 1].real, r[:, 0].imag)
 
-    orients = rotate(quats, x_axis)
     return np.stack(
         (
             ds * np.cos(angles),
