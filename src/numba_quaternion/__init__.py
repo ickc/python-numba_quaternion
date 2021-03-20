@@ -183,7 +183,8 @@ def quat_to_azimuthal_equidistant_projection_polar_with_orientation(quats: np.nd
     angles = np.arctan2(r[:, 1].real, r[:, 0].imag)
 
     orients = rotate(quats, x_axis)
-    return np.stack((
+    return np.stack(
+        (
             ds,
             angles,
             np.arctan2(orients[:, 1].real, orients[:, 0].imag)
@@ -218,6 +219,44 @@ def quat_to_azimuthal_equidistant_projection_with_orientation(quats: np.ndarray[
         ),
         -1,
     )
+
+
+@jit(nopython=True, nogil=True, cache=True)
+def azimuthal_equidistant_projection_polar_with_orientation_to_rotation_matrix(array: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
+    """Convert Azimuthal equidistant projection in polar coordinate with orientation to detector pointing.
+
+    Input array is in radian,
+    has the last dimension with 3 elements,
+    1st as the angular distance to North pole,
+    2nd as the azimuth,
+    3rd as the orientation in angle.
+    """
+    theta = array[..., 0]
+    phi = array[..., 1]
+    alpha = array[..., 2]
+
+    sin_theta = np.sin(theta)
+    Rz = np.stack(
+        (
+            sin_theta * np.cos(phi),
+            sin_theta * np.sin(phi),
+            np.cos(theta),
+        ),
+        -1,
+    )
+    # t is cot(beta)
+    t = -np.tan(theta) * np.cos(phi - alpha)
+    sin_beta = np.power(1. + np.square(t), -0.5)
+    Rx = np.stack(
+        (
+            sin_beta * np.cos(alpha),
+            sin_beta * np.sin(alpha),
+            t * sin_beta,
+        ),
+        -1,
+    )
+
+    return np.stack((Rx, np.cross(Rz, Rx), Rz), -1)
 
 
 @dataclass
@@ -324,6 +363,11 @@ class Quaternion:
     @classmethod
     def from_rotation_matrix(cls, array: np.ndarray[np.float_]) -> Quaternion:
         return cls(rotation_matrix_to_quat(array))
+
+    @classmethod
+    def from_azimuthal_equidistant_projection_polar_with_orientation(cls, array: np.ndarray[np.float_]) -> Quaternion:
+        m = azimuthal_equidistant_projection_polar_with_orientation_to_rotation_matrix(array)
+        return cls.from_rotation_matrix(m)
 
     @cached_property
     def to_rotation_matrix(self) -> np.ndarray[np.float_]:
