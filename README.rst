@@ -60,23 +60,23 @@ Other Python projects that implements quaternions and I knew and used are:
    :target: https://scrutinizer-ci.com/g/ickc/python-numba_quaternion/
 .. |CodeClimate Quality Status| image:: https://codeclimate.com/github/ickc/python-numba_quaternion/badges/gpa.svg
    :target: https://codeclimate.com/github/ickc/python-numba_quaternion
-.. |Supported versions| image:: https://img.shields.io/pypi/pyversions/python-numba_quaternion.svg
-   :target: https://pypi.org/project/python-numba_quaternion
-.. |Supported implementations| image:: https://img.shields.io/pypi/implementation/python-numba_quaternion.svg
-   :target: https://pypi.org/project/python-numba_quaternion
-.. |PyPI Wheel| image:: https://img.shields.io/pypi/wheel/python-numba_quaternion.svg
-   :target: https://pypi.org/project/python-numba_quaternion
-.. |PyPI Package latest release| image:: https://img.shields.io/pypi/v/python-numba_quaternion.svg
-   :target: https://pypi.org/project/python-numba_quaternion
+.. |Supported versions| image:: https://img.shields.io/pypi/pyversions/numba-quaternion.svg
+   :target: https://pypi.org/project/numba-quaternion
+.. |Supported implementations| image:: https://img.shields.io/pypi/implementation/numba-quaternion.svg
+   :target: https://pypi.org/project/numba-quaternion
+.. |PyPI Wheel| image:: https://img.shields.io/pypi/wheel/numba-quaternion.svg
+   :target: https://pypi.org/project/numba-quaternion
+.. |PyPI Package latest release| image:: https://img.shields.io/pypi/v/numba-quaternion.svg
+   :target: https://pypi.org/project/numba-quaternion
 .. |GitHub Releases| image:: https://img.shields.io/github/tag/ickc/python-numba_quaternion.svg?label=github+release
    :target: https://github.com/ickc/python-numba_quaternion/releases
-.. |Development Status| image:: https://img.shields.io/pypi/status/python-numba_quaternion.svg
-   :target: https://pypi.python.org/pypi/python-numba_quaternion/
-.. |Downloads| image:: https://img.shields.io/pypi/dm/python-numba_quaternion.svg
-   :target: https://pypi.python.org/pypi/python-numba_quaternion/
+.. |Development Status| image:: https://img.shields.io/pypi/status/numba-quaternion.svg
+   :target: https://pypi.python.org/pypi/numba-quaternion/
+.. |Downloads| image:: https://img.shields.io/pypi/dm/numba-quaternion.svg
+   :target: https://pypi.python.org/pypi/numba-quaternion/
 .. |Commits since latest release| image:: https://img.shields.io/github/commits-since/ickc/python-numba_quaternion/v0.2.0.svg
    :target: https://github.com/ickc/python-numba_quaternion/compare/v0.2.0...master
-.. |License| image:: https://img.shields.io/pypi/l/python-numba_quaternion.svg
+.. |License| image:: https://img.shields.io/pypi/l/numba-quaternion.svg
 .. |Conda Recipe| image:: https://img.shields.io/badge/recipe-numba_quaternion-green.svg
    :target: https://anaconda.org/conda-forge/numba_quaternion
 .. |Conda Downloads| image:: https://img.shields.io/conda/dn/conda-forge/numba_quaternion.svg
