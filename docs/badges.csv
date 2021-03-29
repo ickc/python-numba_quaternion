@@ -25,7 +25,7 @@ package,"
 ![License](https://img.shields.io/pypi/l/python-numba_quaternion.svg)
 "
 conda-forge,"
-[![Conda Recipe](https://img.shields.io/badge/recipe-python-numba_quaternion-green.svg)](https://anaconda.org/conda-forge/python-numba_quaternion)
-[![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/python-numba_quaternion.svg)](https://anaconda.org/conda-forge/python-numba_quaternion)
-[![Conda Version](https://img.shields.io/conda/vn/conda-forge/python-numba_quaternion.svg)](https://anaconda.org/conda-forge/python-numba_quaternion)
-[![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/python-numba_quaternion.svg)](https://anaconda.org/conda-forge/python-numba_quaternion)"
+[![Conda Recipe](https://img.shields.io/badge/recipe-numba_quaternion-green.svg)](https://anaconda.org/conda-forge/numba_quaternion)
+[![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/numba_quaternion.svg)](https://anaconda.org/conda-forge/numba_quaternion)
+[![Conda Version](https://img.shields.io/conda/vn/conda-forge/numba_quaternion.svg)](https://anaconda.org/conda-forge/numba_quaternion)
+[![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/numba_quaternion.svg)](https://anaconda.org/conda-forge/numba_quaternion)"
