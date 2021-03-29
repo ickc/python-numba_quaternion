@@ -288,6 +288,41 @@ def azimuthal_equidistant_projection_polar_with_orientation_to_rotation_matrix(a
     return np.stack((Rx, np.cross(Rz, Rx), Rz), -1)
 
 
+@jit(nopython=True, nogil=True, cache=True)
+def dist_spherical(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> float:
+    """Great circle distance between 2 detector quaternions."""
+    z = np.array([0., 1.j], dtype=p.dtype)
+    p_z = complex_to_float(rotate(p.reshape(1, 2), z))
+    q_z = complex_to_float(rotate(q.reshape(1, 2), z))
+    return np.arccos((p_z[0, 1:] * q_z[0, 1:]).sum())
+
+
+@jit(nopython=True, nogil=True, cache=True)
+def dist_spherical_pairwise(ps: np.ndarray[np.complex_]) -> np.ndarray[np.float_]:
+    """Pair-wise great circle distances between detector quaternions.
+
+    Assume input is a 1-dim array of quarternions (2d-array)
+    and return pairwise distance in 1d-array,
+    ordered in "row-major" and "j>i" directions.
+    E.g. for 3 detectors, [(0, 1), (0, 2), (1, 2)] ordering.
+    """
+    # make sure it is 2d-array
+    n, _ = ps.shape
+    size = (n * (n - 1)) // 2
+    res = np.empty(size)
+    k = 0
+    for i in range(n):
+        for j in range(i + 1, n):
+            res[k] = dist_spherical(ps[i], ps[j])
+            k += 1
+    return res
+
+
+@jit(nopython=True, nogil=True, cache=True)
+def dist_spherical_pairwise_from_lastcol_array(ps: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
+    return dist_spherical_pairwise(float_to_complex(lastcol_quat_to_canonical(ps)))
+
+
 @dataclass
 class Quaternion:
     array_complex: np.ndarray[np.complex_]
