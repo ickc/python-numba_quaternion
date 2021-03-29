@@ -270,6 +270,27 @@ has the last dimension with 3 elements,
 <dd></dd></dl>
 
 <dl class="py function">
+<dt id="numba_quaternion.dist_spherical">
+<code class="sig-prename descclassname"><span class="pre">numba_quaternion.</span></code><code class="sig-name descname"><span class="pre">dist_spherical</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">np.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">np.complex_</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">np.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">np.complex_</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">float</span><a class="reference internal" href="../../_modules/numba_quaternion/#dist_spherical"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#numba_quaternion.dist_spherical" title="Permalink to this definition">¶</a></dt>
+<dd><p>Great circle distance between 2 detector quaternions.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="numba_quaternion.dist_spherical_pairwise">
+<code class="sig-prename descclassname"><span class="pre">numba_quaternion.</span></code><code class="sig-name descname"><span class="pre">dist_spherical_pairwise</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ps</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">np.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">np.complex_</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">np.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">np.float_</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../_modules/numba_quaternion/#dist_spherical_pairwise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#numba_quaternion.dist_spherical_pairwise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pair-wise great circle distances between detector quaternions.</p>
+<p>Assume input is a 1-dim array of quarternions (2d-array)
+and return pairwise distance in 1d-array,
+ordered in “row-major” and “j&gt;i” directions.
+E.g. for 3 detectors, [(0, 1), (0, 2), (1, 2)] ordering.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="numba_quaternion.dist_spherical_pairwise_from_lastcol_array">
+<code class="sig-prename descclassname"><span class="pre">numba_quaternion.</span></code><code class="sig-name descname"><span class="pre">dist_spherical_pairwise_from_lastcol_array</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ps</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">np.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">np.float_</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">np.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">np.float_</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../_modules/numba_quaternion/#dist_spherical_pairwise_from_lastcol_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#numba_quaternion.dist_spherical_pairwise_from_lastcol_array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
 <dt id="numba_quaternion.float32_to_complex64">
 <code class="sig-prename descclassname"><span class="pre">numba_quaternion.</span></code><code class="sig-name descname"><span class="pre">float32_to_complex64</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">np.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">np.float32</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">np.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">np.complex64</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="../../_modules/numba_quaternion/#float32_to_complex64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#numba_quaternion.float32_to_complex64" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
