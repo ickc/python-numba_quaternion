@@ -12,17 +12,17 @@ tests,"
 [![CodeClimate Quality Status](https://codeclimate.com/github/ickc/python-numba_quaternion/badges/gpa.svg)](https://codeclimate.com/github/ickc/python-numba_quaternion)
 "
 package,"
-[![Supported versions](https://img.shields.io/pypi/pyversions/python-numba_quaternion.svg)](https://pypi.org/project/python-numba_quaternion)
-[![Supported implementations](https://img.shields.io/pypi/implementation/python-numba_quaternion.svg)](https://pypi.org/project/python-numba_quaternion)
-[![PyPI Wheel](https://img.shields.io/pypi/wheel/python-numba_quaternion.svg)](https://pypi.org/project/python-numba_quaternion)
+[![Supported versions](https://img.shields.io/pypi/pyversions/numba-quaternion.svg)](https://pypi.org/project/numba-quaternion)
+[![Supported implementations](https://img.shields.io/pypi/implementation/numba-quaternion.svg)](https://pypi.org/project/numba-quaternion)
+[![PyPI Wheel](https://img.shields.io/pypi/wheel/numba-quaternion.svg)](https://pypi.org/project/numba-quaternion)
 
-[![PyPI Package latest release](https://img.shields.io/pypi/v/python-numba_quaternion.svg)](https://pypi.org/project/python-numba_quaternion)
+[![PyPI Package latest release](https://img.shields.io/pypi/v/numba-quaternion.svg)](https://pypi.org/project/numba-quaternion)
 [![GitHub Releases](https://img.shields.io/github/tag/ickc/python-numba_quaternion.svg?label=github+release)](https://github.com/ickc/python-numba_quaternion/releases)
-[![Development Status](https://img.shields.io/pypi/status/python-numba_quaternion.svg)](https://pypi.python.org/pypi/python-numba_quaternion/)
-[![Downloads](https://img.shields.io/pypi/dm/python-numba_quaternion.svg)](https://pypi.python.org/pypi/python-numba_quaternion/)
+[![Development Status](https://img.shields.io/pypi/status/numba-quaternion.svg)](https://pypi.python.org/pypi/numba-quaternion/)
+[![Downloads](https://img.shields.io/pypi/dm/numba-quaternion.svg)](https://pypi.python.org/pypi/numba-quaternion/)
 
 [![Commits since latest release](https://img.shields.io/github/commits-since/ickc/python-numba_quaternion/v0.2.0.svg)](https://github.com/ickc/python-numba_quaternion/compare/v0.2.0...master)
-![License](https://img.shields.io/pypi/l/python-numba_quaternion.svg)
+![License](https://img.shields.io/pypi/l/numba-quaternion.svg)
 "
 conda-forge,"
 [![Conda Recipe](https://img.shields.io/badge/recipe-numba_quaternion-green.svg)](https://anaconda.org/conda-forge/numba_quaternion)
