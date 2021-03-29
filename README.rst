@@ -4,7 +4,7 @@
 numba_quaternion—quaternion operations that can be used within Numba-jit functions
 ==================================================================================
 
-:Date:   March 20, 2021
+:Date:   March 29, 2021
 
 .. contents::
    :depth: 3
@@ -77,13 +77,13 @@ Other Python projects that implements quaternions and I knew and used are:
 .. |Commits since latest release| image:: https://img.shields.io/github/commits-since/ickc/python-numba_quaternion/v0.2.0.svg
    :target: https://github.com/ickc/python-numba_quaternion/compare/v0.2.0...master
 .. |License| image:: https://img.shields.io/pypi/l/python-numba_quaternion.svg
-.. |Conda Recipe| image:: https://img.shields.io/badge/recipe-python-numba_quaternion-green.svg
-   :target: https://anaconda.org/conda-forge/python-numba_quaternion
-.. |Conda Downloads| image:: https://img.shields.io/conda/dn/conda-forge/python-numba_quaternion.svg
-   :target: https://anaconda.org/conda-forge/python-numba_quaternion
-.. |Conda Version| image:: https://img.shields.io/conda/vn/conda-forge/python-numba_quaternion.svg
-   :target: https://anaconda.org/conda-forge/python-numba_quaternion
-.. |Conda Platforms| image:: https://img.shields.io/conda/pn/conda-forge/python-numba_quaternion.svg
-   :target: https://anaconda.org/conda-forge/python-numba_quaternion
+.. |Conda Recipe| image:: https://img.shields.io/badge/recipe-numba_quaternion-green.svg
+   :target: https://anaconda.org/conda-forge/numba_quaternion
+.. |Conda Downloads| image:: https://img.shields.io/conda/dn/conda-forge/numba_quaternion.svg
+   :target: https://anaconda.org/conda-forge/numba_quaternion
+.. |Conda Version| image:: https://img.shields.io/conda/vn/conda-forge/numba_quaternion.svg
+   :target: https://anaconda.org/conda-forge/numba_quaternion
+.. |Conda Platforms| image:: https://img.shields.io/conda/pn/conda-forge/numba_quaternion.svg
+   :target: https://anaconda.org/conda-forge/numba_quaternion
 .. |image2| image:: https://github.com/ickc/python-numba_quaternion/workflows/GitHub%20Pages/badge.svg
    :target: https://ickc.github.io/python-numba_quaternion
