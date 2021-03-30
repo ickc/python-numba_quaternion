@@ -294,7 +294,16 @@ def dist_spherical(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> fl
     z = np.array([0., 1.j], dtype=p.dtype)
     p_z = complex_to_float(rotate(p.reshape(1, 2), z))
     q_z = complex_to_float(rotate(q.reshape(1, 2), z))
-    return np.arccos((p_z[0, 1:] * q_z[0, 1:]).sum())
+    dot = (p_z[0, 1:] * q_z[0, 1:]).sum()
+    # protect against floating point error
+    if dot > 1.:
+        assert dot - 1. < 1e-3
+        return 0.
+    elif dot < -1.:
+        assert -dot - 1. < 1e-3
+        return np.pi
+    else:
+        return np.arccos(dot)
 
 
 @jit(nopython=True, nogil=True, cache=True)
