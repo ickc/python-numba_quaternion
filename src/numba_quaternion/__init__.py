@@ -140,10 +140,11 @@ def rotation_matrix_to_quat(m: np.ndarray[np.float_]) -> np.ndarray[np.complex_]
     Q_zx = m[..., 2, 0]
     Q_zy = m[..., 2, 1]
     Q_zz = m[..., 2, 2]
-    wx = 0.5                          * np.sqrt(1. + Q_xx + Q_yy + Q_zz) + \
-        (0.5j * np.sign(Q_zy - Q_yz)) * np.sqrt(1. + Q_xx - Q_yy - Q_zz)
-    yz = (0.5 * np.sign(Q_xz - Q_zx)) * np.sqrt(1. - Q_xx + Q_yy - Q_zz) + \
-        (0.5j * np.sign(Q_yx - Q_xy)) * np.sqrt(1. - Q_xx - Q_yy + Q_zz)
+    # abs is for guarding against floating point error
+    wx = 0.5                          * np.sqrt(np.abs(1. + Q_xx + Q_yy + Q_zz)) + \
+        (0.5j * np.sign(Q_zy - Q_yz)) * np.sqrt(np.abs(1. + Q_xx - Q_yy - Q_zz))
+    yz = (0.5 * np.sign(Q_xz - Q_zx)) * np.sqrt(np.abs(1. - Q_xx + Q_yy - Q_zz)) + \
+        (0.5j * np.sign(Q_yx - Q_xy)) * np.sqrt(np.abs(1. - Q_xx - Q_yy + Q_zz))
     return np.stack((wx, yz), -1)
 
 @jit(nopython=True, nogil=True, cache=True)
