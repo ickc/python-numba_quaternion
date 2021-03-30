@@ -2,6 +2,6 @@ readme.rst:18: [redirected with Found] https://codeclimate.com/github/ickc/pytho
 readme.rst:22: [redirected permanently] https://img.shields.io/github/tag/ickc/python-numba_quaternion.svg?label=github+release to https://img.shields.io/github/v/tag/ickc/python-numba_quaternion.svg?label=github%20release&sort=semver
 readme.rst:22: [redirected permanently] https://pypi.python.org/pypi/numba-quaternion/ to https://pypi.org/project/numba-quaternion/
 readme.rst:14: [redirected with Found] https://readthedocs.org/projects/python-numba_quaternion/badge/?version=latest to https://readthedocs.org/projects/python-numba-quaternion/badge/?version=latest
-readme.rst:14: [redirected with Found] https://python-numba_quaternion.readthedocs.io/en/latest/?badge=latest&style=plastic to https://python-numba-quaternion.readthedocs.io/en/latest/
 authors.rst:5: [redirected with Found] https://python-numba_quaternion.readthedocs.io/ to https://python-numba-quaternion.readthedocs.io/en/latest/
+readme.rst:14: [redirected with Found] https://python-numba_quaternion.readthedocs.io/en/latest/?badge=latest&style=plastic to https://python-numba-quaternion.readthedocs.io/en/latest/
 readme.rst:18: [redirected with See Other] https://www.codacy.com/app/ickc/python-numba_quaternion to https://app.codacy.com/manual/ickc/python-numba_quaternion
