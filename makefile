@@ -1,12 +1,13 @@
 SHELL = /usr/bin/env bash
 
 _python ?= python
-PYTESTPARALLEL ?= --workers auto
-EXTRAS ?=
 COVHTML ?= --cov-report html
 # for bump2version, valid options are: major, minor, patch
 PART ?= patch
 N_MPI ?= 2
+# use pytest-parallel if python < 3.9 else pytest-xdist
+# as pytest-parallel is faster but doesn't support python 3.9 yet
+PYTESTARGS ?= $(shell python -c 'import sys; print("--workers auto" if sys.version_info < (3, 9) else "-n auto")')
 
 _pandoc = pandoc
 pandocArgs = --toc -M date="`date "+%B %e, %Y"`" --filter=pantable --wrap=none
@@ -21,7 +22,7 @@ docs: $(RSTs)
 html: dist/docs/
 
 test:
-	$(_python) -m pytest -vv $(PYTESTPARALLEL) \
+	$(_python) -m pytest -vv $(PYTESTARGS) \
 		--cov=src --cov-report term $(COVHTML) --no-cov-on-fail --cov-branch \
 		tests
 
@@ -84,15 +85,18 @@ print-%:
 
 # poetry #######################################################################
 
-# since poetry doesn't support editable, we can build and extract the setup.py,
-# temporary remove pyproject.toml and ask pip to install from setup.py instead.
-editable:
+setup.py:
 	poetry build
 	cd dist; tar -xf numba_quaternion-0.2.0.tar.gz numba_quaternion-0.2.0/setup.py
 	mv dist/numba_quaternion-0.2.0/setup.py .
 	rm -rf dist/numba_quaternion-0.2.0
+
+# since poetry doesn't support editable, we can build and extract the setup.py,
+# temporary remove pyproject.toml and ask pip to install from setup.py instead.
+editable: setup.py
 	mv pyproject.toml .pyproject.toml
-	$(_python) -m pip install -e .$(EXTRAS); mv .pyproject.toml pyproject.toml
+	$(_python) -m pip install --no-dependencies -e .
+	mv .pyproject.toml pyproject.toml
 
 # releasing ####################################################################
 
