@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "numba-quaternion"
-version = "0.2.0"
+version = "0.3.0"
 description = "Quaternion operations that can be used within Numba-jit functions."
 readme = "README.md"
 license = "BSD-3-Clause"
