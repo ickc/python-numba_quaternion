@@ -1,20 +1,15 @@
----
-fontsize:	11pt
-documentclass:	memoir
-classoption: article
-geometry:	inner=1in, outer=1in, top=1in, bottom=1.25in
-title:	numba_quaternion—quaternion operations that can be used within Numba-jit functions
-...
+# numba_quaternion
 
-``` {.table}
----
-header: false
-markdown: true
-include: badges.csv
-...
-```
+[![CI](https://github.com/ickc/python-numba_quaternion/actions/workflows/ci.yml/badge.svg)](https://github.com/ickc/python-numba_quaternion/actions/workflows/ci.yml)
+[![Documentation](https://github.com/ickc/python-numba_quaternion/actions/workflows/docs.yml/badge.svg)](https://ickc.github.io/python-numba_quaternion)
+[![PyPI](https://img.shields.io/pypi/v/numba-quaternion.svg)](https://pypi.org/project/numba-quaternion)
+[![Python versions](https://img.shields.io/pypi/pyversions/numba-quaternion.svg)](https://pypi.org/project/numba-quaternion)
+[![conda-forge](https://img.shields.io/conda/vn/conda-forge/numba_quaternion.svg)](https://anaconda.org/conda-forge/numba_quaternion)
+[![License](https://img.shields.io/pypi/l/numba-quaternion.svg)](https://github.com/ickc/python-numba_quaternion/blob/master/LICENSE)
 
-# Introduction
+Quaternion operations that can be used within Numba-jit functions.
+
+## Introduction
 
 This package contains some numba-jit-compiled functions that perform Quaternion operations and a convenient class `Quaternion` that provide convenient methods wrapping around those functions.
 
@@ -24,7 +19,15 @@ This design allows you to write any jit-compiled functions involving those provi
 
 If you do not care to use Quaternion in other jit-compiled functions you write, check out packages below instead.
 
-# Other Python quaternion projects
+## Installation
+
+```sh
+pip install numba-quaternion
+# or
+conda install -c conda-forge numba_quaternion
+```
+
+## Other Python quaternion projects
 
 Other Python projects that implements quaternions and I knew and used are:
 

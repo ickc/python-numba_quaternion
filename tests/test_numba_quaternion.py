@@ -3,6 +3,8 @@ import pytest
 
 import numba_quaternion
 
+np.random.seed(0)
+
 random_array = np.random.randn(100, 4)
 random_array_broadcast = random_array.reshape(5, 5, 2, 2, 4)
 
@@ -50,8 +52,11 @@ def test_rotation_matrix(array):
     assert m.shape[-2] == 3
     assert m.shape[-1] == 3
     res = numba_quaternion.Quaternion.from_rotation_matrix(m)
-    atol = 1e15 if array.dtype == np.float64 else 1e5
-    np.testing.assert_allclose(res.array, test_array.array, atol=atol)
+    # sqrt near 0 in rotation_matrix_to_quat amplifies rounding error to ~sqrt(eps)
+    atol = 1e-7 if array.dtype == np.float64 else 1e-3
+    # q and -q represent the same rotation
+    sign = np.sign((res.array * test_array.array).sum(axis=-1, keepdims=True))
+    np.testing.assert_allclose(sign * res.array, test_array.array, atol=atol)
 
 
 @pytest.mark.parametrize(
@@ -69,7 +74,7 @@ def test_mat_mul(array1, array2, answer):
     test_array1 = numba_quaternion.Quaternion(array1)
     test_array2 = numba_quaternion.Quaternion(array2)
     res = (test_array1 @ test_array2).array_complex
-    atol = 1e15 if array1.dtype == np.float64 else 1e5
+    atol = 1e-12 if array1.dtype == np.complex128 else 1e-3
     np.testing.assert_allclose(res, answer, atol=atol)
 
 
@@ -94,5 +99,30 @@ def test_azimuthal(az):
     m = numba_quaternion.azimuthal_equidistant_projection_polar_with_orientation_to_rotation_matrix(az)
     q = numba_quaternion.rotation_matrix_to_quat(m)
     az_round_trip = numba_quaternion.quat_to_azimuthal_equidistant_projection_polar_with_orientation(q)
-    atol = 1e15 if az.dtype == np.float64 else 1e5
-    np.testing.assert_allclose(az, az_round_trip, atol=atol)
+    atol = 1e-12 if az.dtype == np.float64 else 1e-4
+    np.testing.assert_allclose(az[:, 0], az_round_trip[:, 0], atol=atol)
+    # angles are only defined modulo 2 pi
+    diff = np.angle(np.exp(1.j * (az[:, 1:] - az_round_trip[:, 1:])))
+    np.testing.assert_allclose(diff, 0., atol=atol)
+
+
+def test_operators():
+    p = numba_quaternion.Quaternion.from_array(random_array)
+    q = numba_quaternion.Quaternion.from_array(random_array[::-1].copy())
+    np.testing.assert_allclose((p + q).array, random_array + random_array[::-1])
+    np.testing.assert_allclose(p.conjugate.array[..., 0], random_array[..., 0])
+    np.testing.assert_allclose(p.conjugate.array[..., 1:], -random_array[..., 1:])
+    expected = (p * q).array
+    r = numba_quaternion.Quaternion(p.array_complex.copy())
+    r *= q
+    np.testing.assert_allclose(r.array, expected)
+    r = numba_quaternion.Quaternion(p.array_complex.copy())
+    r += q
+    np.testing.assert_allclose(r.array, (p + q).array)
+
+
+def test_dist_spherical_pairwise():
+    q = numba_quaternion.Quaternion.from_array(random_array[:10]).normalize
+    res = numba_quaternion.dist_spherical_pairwise_from_lastcol_array(q.lastcol_array)
+    assert res.shape == (45,)
+    assert np.all((0. <= res) & (res <= np.pi))

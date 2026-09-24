@@ -1,50 +1,28 @@
-import sphinx_bootstrap_theme
+from importlib.metadata import version as get_version
 
-html_css_files = [
-    "https://cdn.jsdelivr.net/gh/ickc/markdown-latex-css/css/_table.min.css",
-    "https://cdn.jsdelivr.net/gh/ickc/markdown-latex-css/fonts/fonts.min.css",
-]
+project = "numba_quaternion"
+author = "Kolen Cheung"
+copyright = f"2021, {author}"
+version = release = get_version("numba-quaternion")
 
 extensions = [
+    "myst_parser",
+    "sphinx.ext.apidoc",
     "sphinx.ext.autodoc",
-    "sphinx.ext.autosummary",
-    "sphinx.ext.coverage",
-    "sphinx.ext.doctest",
-    "sphinx.ext.extlinks",
-    "sphinx.ext.ifconfig",
     "sphinx.ext.napoleon",
-    "sphinx.ext.todo",
     "sphinx.ext.viewcode",
-    "sphinxcontrib.apidoc",
 ]
-source_suffix = ".rst"
-master_doc = "index"
-project = "numba_quaternion"
-year = "2021"
-author = "Kolen Cheung"
-copyright = f"{year}, {author}"
-version = release = "0.2.0"
+source_suffix = {".md": "markdown", ".rst": "restructuredtext"}
+exclude_patterns = ["_build"]
 
-pygments_style = "solarized-light"
-html_theme = "bootstrap"
-html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
-html_theme_options = {
-    "navbar_links": [("GitHub", "https://github.com/ickc/numba_quaternion/", True,)],
-    "source_link_position": None,
-    "bootswatch_theme": "readable",
-    "bootstrap_version": "3",
-}
+html_theme = "furo"
+html_title = f"{project} {version}"
 
-html_use_smartypants = True
-html_last_updated_fmt = "%b %d, %Y"
-html_split_index = False
-html_short_title = f"{project}-{version}"
-
-napoleon_use_ivar = True
-napoleon_use_rtype = False
-napoleon_use_param = False
-
-# sphinxcontrib.apidoc
-apidoc_module_dir = '../src/numba_quaternion'
-apidoc_separate_modules = True
-apidoc_module_first = True
+apidoc_modules = [
+    {
+        "path": "../src/numba_quaternion",
+        "destination": "api",
+        "separate_modules": True,
+        "module_first": True,
+    },
+]
