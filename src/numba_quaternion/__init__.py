@@ -1,31 +1,14 @@
 from __future__ import annotations
 
-import logging
-import os
 from dataclasses import dataclass
 from functools import cached_property
+from importlib.metadata import version
 
 import numpy as np
 from numba import jit, types
 from numba.extending import overload
 
-try:
-    from coloredlogs import ColoredFormatter as Formatter
-except ImportError:
-    from logging import Formatter
-
-__version__ = '0.2.0'
-
-logger = logging.getLogger(__name__)
-handler = logging.StreamHandler()
-logger.addHandler(handler)
-handler.setFormatter(Formatter('%(name)s %(levelname)s %(message)s'))
-try:
-    level = os.environ.get('COSCONLOGLEVEL', logging.WARNING)
-    logger.setLevel(level=level)
-except ValueError:
-    logger.setLevel(level=logging.WARNING)
-    logger.error(f'Unknown COSCONLOGLEVEL {level}, set to default WARNING.')
+__version__ = version("numba-quaternion")
 
 
 @jit(nopython=True, nogil=True, cache=True)
