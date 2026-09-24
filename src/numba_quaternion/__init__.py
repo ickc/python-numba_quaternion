@@ -2,12 +2,12 @@ from __future__ import annotations
 
 import logging
 import os
-from typing import TYPE_CHECKING
 from dataclasses import dataclass
 from functools import cached_property
 
 import numpy as np
-from numba import jit, generated_jit
+from numba import jit, types
+from numba.extending import overload
 
 try:
     from coloredlogs import ColoredFormatter as Formatter
@@ -29,13 +29,13 @@ except ValueError:
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def lastcol_quat_to_canonical(quat: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
+def lastcol_quat_to_canonical(quat: np.ndarray[np.floating]) -> np.ndarray[np.floating]:
     """Convert from real-part-in-last-column to real-part-in-first-column"""
     return np.ascontiguousarray(quat[..., np.array([3, 0, 1, 2])])
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def canonical_quat_to_lastcol(quat: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
+def canonical_quat_to_lastcol(quat: np.ndarray[np.floating]) -> np.ndarray[np.floating]:
     """Convert from real-part-in-first-column to real-part-in-last-column"""
     return np.ascontiguousarray(quat[..., np.array([1, 2, 3, 0])])
 
@@ -60,26 +60,36 @@ def complex64_to_float32(array: np.ndarray[np.complex64]) -> np.ndarray[np.float
     return array.view(np.float32)
 
 
-@generated_jit(nopython=True, nogil=True, cache=True)
-def float_to_complex(array: np.ndarray[np.float_]) -> np.ndarray[np.complex_]:
-    dtype = str(array.dtype)
-    if dtype == 'float64':
-        return float64_to_complex128
-    elif dtype == 'float32':
-        return float32_to_complex64
+def float_to_complex(array: np.ndarray[np.floating]) -> np.ndarray[np.complexfloating]:
+    """View a real array as complex, pairing adjacent elements in the last axis."""
+    return array.view(np.result_type(array.dtype, np.complex64))
 
 
-@generated_jit(nopython=True, nogil=True, cache=True)
-def complex_to_float(array: np.ndarray[np.complex_]) -> np.ndarray[np.float_]:
-    dtype = str(array.dtype)
-    if dtype == 'complex128':
-        return complex128_to_float64
-    elif dtype == 'complex64':
-        return complex64_to_float32
+def complex_to_float(array: np.ndarray[np.complexfloating]) -> np.ndarray[np.floating]:
+    """View a complex array as real, splitting each element into 2 in the last axis."""
+    return array.view(np.finfo(array.dtype).dtype)
+
+
+@overload(float_to_complex, jit_options={'nogil': True, 'cache': True})
+def _float_to_complex_jit(array):
+    if isinstance(array, types.Array):
+        if array.dtype == types.float64:
+            return lambda array: float64_to_complex128(array)
+        elif array.dtype == types.float32:
+            return lambda array: float32_to_complex64(array)
+
+
+@overload(complex_to_float, jit_options={'nogil': True, 'cache': True})
+def _complex_to_float_jit(array):
+    if isinstance(array, types.Array):
+        if array.dtype == types.complex128:
+            return lambda array: complex128_to_float64(array)
+        elif array.dtype == types.complex64:
+            return lambda array: complex64_to_float32(array)
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def mul(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> np.ndarray[np.complex_]:
+def mul(p: np.ndarray[np.complexfloating], q: np.ndarray[np.complexfloating]) -> np.ndarray[np.complexfloating]:
     """Perform quarternion multiplication using complex multiplication"""
     A = p[..., 0]
     B = p[..., 1]
@@ -91,7 +101,7 @@ def mul(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> np.ndarray[np
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def matmul(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> np.ndarray[np.complex_]:
+def matmul(p: np.ndarray[np.complexfloating], q: np.ndarray[np.complexfloating]) -> np.ndarray[np.complexfloating]:
     """Perform quarternion matrix multiplication using complex matrix multiplication"""
     A = np.ascontiguousarray(p[..., 0])
     B = np.ascontiguousarray(p[..., 1])
@@ -103,7 +113,7 @@ def matmul(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> np.ndarray
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def quat_to_rotation_matrix(quats: np.ndarray[np.complex_]) -> np.ndarray[np.float_]:
+def quat_to_rotation_matrix(quats: np.ndarray[np.complexfloating]) -> np.ndarray[np.floating]:
     """Convert quaternion to rotation matrix.
     """
     I = np.array(
@@ -126,7 +136,7 @@ def quat_to_rotation_matrix(quats: np.ndarray[np.complex_]) -> np.ndarray[np.flo
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def rotation_matrix_to_quat(m: np.ndarray[np.float_]) -> np.ndarray[np.complex_]:
+def rotation_matrix_to_quat(m: np.ndarray[np.floating]) -> np.ndarray[np.complexfloating]:
     """Convert rotation matrix to quaternion.
 
     See https://en.wikipedia.org/wiki/Rotation_matrix#Quaternion
@@ -148,7 +158,7 @@ def rotation_matrix_to_quat(m: np.ndarray[np.float_]) -> np.ndarray[np.complex_]
     return np.stack((wx, yz), -1)
 
 @jit(nopython=True, nogil=True, cache=True)
-def conjugate(p: np.ndarray[np.complex_]) -> np.ndarray[np.complex_]:
+def conjugate(p: np.ndarray[np.complexfloating]) -> np.ndarray[np.complexfloating]:
     res = np.empty_like(p)
     res[..., 0] = np.conjugate(p[..., 0])
     res[..., 1] = -p[..., 1]
@@ -156,29 +166,29 @@ def conjugate(p: np.ndarray[np.complex_]) -> np.ndarray[np.complex_]:
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def norm(p: np.ndarray[np.complex_]) -> np.ndarray[np.float_]:
+def norm(p: np.ndarray[np.complexfloating]) -> np.ndarray[np.floating]:
     return (p * np.conjugate(p)).sum(axis=-1)
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def abs(p: np.ndarray[np.complex_]) -> np.ndarray[np.float_]:
+def abs(p: np.ndarray[np.complexfloating]) -> np.ndarray[np.floating]:
     return np.sqrt(norm(p))
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def inverse(p: np.ndarray[np.complex_]) -> np.ndarray[np.complex_]:
+def inverse(p: np.ndarray[np.complexfloating]) -> np.ndarray[np.complexfloating]:
     return conjugate(p) / norm(p).reshape(*p.shape[:-1], 1)
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def rotate(p: np.ndarray[np.complex_], v: np.ndarray[np.complex_]) -> np.ndarray[np.complex_]:
+def rotate(p: np.ndarray[np.complexfloating], v: np.ndarray[np.complexfloating]) -> np.ndarray[np.complexfloating]:
     """Rotate v by p respecting Numpy broadcasting rule."""
     p_inv = inverse(p)
     return mul(mul(p, v), p_inv)
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def rotate_2d(p: np.ndarray[np.complex_], v: np.ndarray[np.complex_]) -> List[np.ndarray[np.complex_]]:
+def rotate_2d(p: np.ndarray[np.complexfloating], v: np.ndarray[np.complexfloating]) -> list[np.ndarray[np.complexfloating]]:
     """Rotate each row of v by p and stack at an axis.
 
     :param v: 2d-array
@@ -188,7 +198,7 @@ def rotate_2d(p: np.ndarray[np.complex_], v: np.ndarray[np.complex_]) -> List[np
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def quat_to_azimuthal_equidistant_projection_polar_with_orientation(quats: np.ndarray[np.complex_]) -> np.ndarray[np.float_]:
+def quat_to_azimuthal_equidistant_projection_polar_with_orientation(quats: np.ndarray[np.complexfloating]) -> np.ndarray[np.floating]:
     """Convert from detector pointing to Azimuthal equidistant projection in polar coordinate with orientation.
 
     Returned array is in radian,
@@ -220,7 +230,7 @@ def quat_to_azimuthal_equidistant_projection_polar_with_orientation(quats: np.nd
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def quat_to_azimuthal_equidistant_projection_with_orientation(quats: np.ndarray[np.complex_]) -> np.ndarray[np.float_]:
+def quat_to_azimuthal_equidistant_projection_with_orientation(quats: np.ndarray[np.complexfloating]) -> np.ndarray[np.floating]:
     """Convert from detector pointing to Azimuthal equidistant projection in cartesian coordinate with orientation.
 
     Returned array is in radian,
@@ -252,7 +262,7 @@ def quat_to_azimuthal_equidistant_projection_with_orientation(quats: np.ndarray[
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def azimuthal_equidistant_projection_polar_with_orientation_to_rotation_matrix(array: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
+def azimuthal_equidistant_projection_polar_with_orientation_to_rotation_matrix(array: np.ndarray[np.floating]) -> np.ndarray[np.floating]:
     """Convert Azimuthal equidistant projection in polar coordinate with orientation to detector pointing.
 
     Input array is in radian,
@@ -290,7 +300,7 @@ def azimuthal_equidistant_projection_polar_with_orientation_to_rotation_matrix(a
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def dist_spherical(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> float:
+def dist_spherical(p: np.ndarray[np.complexfloating], q: np.ndarray[np.complexfloating]) -> float:
     """Great circle distance between 2 detector quaternions."""
     z = np.array([0., 1.j], dtype=p.dtype)
     p_z = complex_to_float(rotate(p.reshape(1, 2), z))
@@ -308,7 +318,7 @@ def dist_spherical(p: np.ndarray[np.complex_], q: np.ndarray[np.complex_]) -> fl
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def dist_spherical_pairwise(ps: np.ndarray[np.complex_]) -> np.ndarray[np.float_]:
+def dist_spherical_pairwise(ps: np.ndarray[np.complexfloating]) -> np.ndarray[np.floating]:
     """Pair-wise great circle distances between detector quaternions.
 
     Assume input is a 1-dim array of quarternions (2d-array)
@@ -329,13 +339,13 @@ def dist_spherical_pairwise(ps: np.ndarray[np.complex_]) -> np.ndarray[np.float_
 
 
 @jit(nopython=True, nogil=True, cache=True)
-def dist_spherical_pairwise_from_lastcol_array(ps: np.ndarray[np.float_]) -> np.ndarray[np.float_]:
+def dist_spherical_pairwise_from_lastcol_array(ps: np.ndarray[np.floating]) -> np.ndarray[np.floating]:
     return dist_spherical_pairwise(float_to_complex(lastcol_quat_to_canonical(ps)))
 
 
 @dataclass
 class Quaternion:
-    array_complex: np.ndarray[np.complex_]
+    array_complex: np.ndarray[np.complexfloating]
 
     def __post_init__(self):
         assert self.array_complex.shape[-1] == 2
@@ -363,26 +373,28 @@ class Quaternion:
             pass
 
     @cached_property
-    def array(self) -> np.ndarray[np.float_]:
+    def array(self) -> np.ndarray[np.floating]:
         return complex_to_float(self.array_complex)
 
     @cached_property
-    def lastcol_array(self) -> np.ndarray[np.float_]:
+    def lastcol_array(self) -> np.ndarray[np.floating]:
         return canonical_quat_to_lastcol(complex_to_float(self.array_complex))
 
     def __add__(self, other: Quaternion) -> Quaternion:
-        return Quaternion(self.array + other.array)
+        return Quaternion(self.array_complex + other.array_complex)
 
-    def __iadd__(self, other: Quaternion):
+    def __iadd__(self, other: Quaternion) -> Quaternion:
         self.clear_cache()
-        self.array += other.array
+        self.array_complex = self.array_complex + other.array_complex
+        return self
 
     def __mul__(self, other: Quaternion) -> Quaternion:
         return Quaternion(mul(self.array_complex, other.array_complex))
 
-    def __imul__(self, other: Quaternion):
+    def __imul__(self, other: Quaternion) -> Quaternion:
         self.clear_cache()
         self.array_complex = mul(self.array_complex, other.array_complex)
+        return self
 
     def __matmul__(self, other: Quaternion) -> Quaternion:
         return Quaternion(matmul(self.array_complex, other.array_complex))
@@ -390,17 +402,18 @@ class Quaternion:
     def __imatmul__(self, other: Quaternion) -> Quaternion:
         self.clear_cache()
         self.array_complex = matmul(self.array_complex, other.array_complex)
+        return self
 
     @property
     def conjugate(self) -> Quaternion:
-        return Quaternion(conjugate(self.array))
+        return Quaternion(conjugate(self.array_complex))
 
     @property
-    def norm(self) -> np.ndarray[np.float_]:
+    def norm(self) -> np.ndarray[np.floating]:
         return norm(self.array)
 
     @property
-    def abs(self) -> np.ndarray[np.float_]:
+    def abs(self) -> np.ndarray[np.floating]:
         return abs(self.array)
 
     @property
@@ -415,7 +428,7 @@ class Quaternion:
         return Quaternion(rotate(self.array_complex, other.array_complex))
 
     @cached_property
-    def azimuthal_equidistant_projection_polar_with_orientation(self) -> np.ndarray[np.float_]:
+    def azimuthal_equidistant_projection_polar_with_orientation(self) -> np.ndarray[np.floating]:
         """Convert from detector pointing to Azimuthal equidistant projection in polar coordinate with orientation.
 
         Returned array is in radian,
@@ -427,7 +440,7 @@ class Quaternion:
         return quat_to_azimuthal_equidistant_projection_polar_with_orientation(self.array_complex)
 
     @cached_property
-    def azimuthal_equidistant_projection_with_orientation(self) -> np.ndarray[np.float_]:
+    def azimuthal_equidistant_projection_with_orientation(self) -> np.ndarray[np.floating]:
         """Convert from detector pointing to Azimuthal equidistant projection in cartesian coordinate with orientation.
 
         Returned array is in radian,
@@ -439,13 +452,13 @@ class Quaternion:
         return quat_to_azimuthal_equidistant_projection_with_orientation(self.array_complex)
 
     @classmethod
-    def from_array(cls, array: np.ndarray[np.float_]) -> Quaternion:
+    def from_array(cls, array: np.ndarray[np.floating]) -> Quaternion:
         """Create Quaternion from real array with last axis as w, x, y, z.
         """
         return cls(float_to_complex(array))
 
     @classmethod
-    def from_lastcol_array(cls, array: np.ndarray[np.float_]) -> Quaternion:
+    def from_lastcol_array(cls, array: np.ndarray[np.floating]) -> Quaternion:
         """Create Quaternion from real array with last axis as x, y, z, w.
 
         Convention used in TOAST.
@@ -453,14 +466,14 @@ class Quaternion:
         return cls(float_to_complex(lastcol_quat_to_canonical(array)))
 
     @classmethod
-    def from_rotation_matrix(cls, array: np.ndarray[np.float_]) -> Quaternion:
+    def from_rotation_matrix(cls, array: np.ndarray[np.floating]) -> Quaternion:
         return cls(rotation_matrix_to_quat(array))
 
     @classmethod
-    def from_azimuthal_equidistant_projection_polar_with_orientation(cls, array: np.ndarray[np.float_]) -> Quaternion:
+    def from_azimuthal_equidistant_projection_polar_with_orientation(cls, array: np.ndarray[np.floating]) -> Quaternion:
         m = azimuthal_equidistant_projection_polar_with_orientation_to_rotation_matrix(array)
         return cls.from_rotation_matrix(m)
 
     @cached_property
-    def to_rotation_matrix(self) -> np.ndarray[np.float_]:
+    def to_rotation_matrix(self) -> np.ndarray[np.floating]:
         return quat_to_rotation_matrix(self.array_complex)
