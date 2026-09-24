@@ -6,7 +6,7 @@ build-backend = "uv_build"
 name = "numba-quaternion"
 version = "0.2.0"
 description = "Quaternion operations that can be used within Numba-jit functions."
-readme = "README.rst"
+readme = "README.md"
 license = "BSD-3-Clause"
 license-files = ["LICENSE"]
 authors = [{ name = "Kolen Cheung", email = "christian.kolen@gmail.com" }]
