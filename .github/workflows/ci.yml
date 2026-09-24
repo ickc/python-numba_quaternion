@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
   workflow_dispatch:
   workflow_call:
@@ -37,7 +37,7 @@ jobs:
           environments: ${{ matrix.environment }}
           locked: true
           cache: true
-          cache-write: ${{ github.event_name == 'push' && github.ref_name == 'master' }}
+          cache-write: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
       - run: pixi run -e ${{ matrix.environment }} test
 
   lint:
@@ -52,5 +52,5 @@ jobs:
           environments: lint
           locked: true
           cache: true
-          cache-write: ${{ github.event_name == 'push' && github.ref_name == 'master' }}
+          cache-write: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
       - run: pixi run -e lint lint

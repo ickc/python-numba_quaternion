@@ -37,7 +37,7 @@ dependencies = [
 Homepage = "https://github.com/ickc/python-numba_quaternion"
 Documentation = "https://ickc.github.io/python-numba_quaternion"
 Repository = "https://github.com/ickc/python-numba_quaternion"
-Changelog = "https://github.com/ickc/python-numba_quaternion/blob/master/CHANGELOG.md"
+Changelog = "https://github.com/ickc/python-numba_quaternion/blob/main/CHANGELOG.md"
 
 [dependency-groups]
 test = [

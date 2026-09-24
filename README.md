@@ -5,7 +5,7 @@
 [![PyPI](https://img.shields.io/pypi/v/numba-quaternion.svg)](https://pypi.org/project/numba-quaternion)
 [![Python versions](https://img.shields.io/pypi/pyversions/numba-quaternion.svg)](https://pypi.org/project/numba-quaternion)
 [![conda-forge](https://img.shields.io/conda/vn/conda-forge/numba_quaternion.svg)](https://anaconda.org/conda-forge/numba_quaternion)
-[![License](https://img.shields.io/pypi/l/numba-quaternion.svg)](https://github.com/ickc/python-numba_quaternion/blob/master/LICENSE)
+[![License](https://img.shields.io/pypi/l/numba-quaternion.svg)](https://github.com/ickc/python-numba_quaternion/blob/main/LICENSE)
 
 Quaternion operations that can be used within Numba-jit functions.
 
